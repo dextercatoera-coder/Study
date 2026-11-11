@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vietnam Pepper — Supply Chain Atlas 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f8f2e4;
+  --paper-2:#fdfaf2;
+  --paper-3:#f0e7d1;
+  --ink:#231a0d;
+  --ink-mid:#5b4c33;
+  --ink-soft:#8a7a5d;
+  --cream:#231a0d;
+  --pepper:#bf3b22;
+  --pepper-soft:#c9532f;
+  --ochre:#a6761b;
+  --moss:#52702f;
+  --sky:#33627a;
+  --line:rgba(35,26,13,.14);
+  --line-strong:rgba(35,26,13,.3);
+  --mono:'DM Mono',ui-monospace,monospace;
+  --serif:'Lora',Georgia,serif;
+  --display:'Fraunces',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;line-height:1.75;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:var(--pepper);color:#fff}
+
+/* ---------- typography ---------- */
+.kicker{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--pepper);display:flex;align-items:center;gap:.9em;
+}
+.kicker::before{content:"";width:34px;height:1px;background:var(--pepper);flex:none}
+h2{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,4.6vw,3.9rem);line-height:1.04;letter-spacing:-.015em;margin:.55em 0 .5em}
+h2 em{font-style:italic;color:var(--pepper)}
+h3{font-family:var(--display);font-weight:500;font-size:1.32rem;line-height:1.25;letter-spacing:-.01em}
+h4{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ochre)}
+.lede{font-size:1.16rem;color:var(--ink-mid);max-width:62ch}
+p{color:var(--ink-mid)}
+strong{color:var(--ink)}
+a{color:inherit}
+.mono{font-family:var(--mono)}
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;padding:.32em .75em;border:1px solid var(--line-strong);
+  border-radius:999px;color:var(--ink-mid);background:rgba(255,255,255,.4);
+}
+
+/* ---------- layout ---------- */
+section{position:relative;padding:clamp(72px,9vw,132px) clamp(20px,5vw,72px)}
+.wrap{max-width:1360px;margin:0 auto}
+.rule{height:1px;background:var(--line);margin:0 clamp(20px,5vw,72px)}
+section.alt{background:
+  radial-gradient(1100px 520px at 82% -12%, rgba(191,59,34,.07), transparent 62%),
+  radial-gradient(900px 500px at 6% 108%, rgba(166,118,27,.08), transparent 60%),
+  var(--paper-3);
+}
+
+/* ---------- nav ---------- */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--pepper),var(--ochre));z-index:1000}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:14px clamp(20px,5vw,72px);
+  background:rgba(248,242,228,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{font-family:var(--display);font-size:1.02rem;letter-spacing:.02em;display:flex;align-items:center;gap:11px;white-space:nowrap}
+.brand .dot{width:11px;height:11px;border-radius:50%;background:var(--pepper);box-shadow:0 0 0 4px rgba(191,59,34,.18)}
+.navlinks{display:flex;gap:clamp(9px,1.4vw,22px);flex-wrap:wrap;justify-content:flex-end}
+.navlinks a{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-soft);padding:6px 0;position:relative;transition:color .25s;
+}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--pepper);transition:width .3s}
+.navlinks a:hover,.navlinks a.active{color:var(--ink)}
+.navlinks a.active::after,.navlinks a:hover::after{width:100%}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:150px;padding-bottom:70px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-bg .mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(760px 560px at 78% 18%, rgba(191,59,34,.13), transparent 62%),
+    radial-gradient(620px 520px at 12% 76%, rgba(166,118,27,.14), transparent 60%),
+    radial-gradient(900px 700px at 50% 120%, rgba(82,112,47,.10), transparent 62%);
+}
+.hero-bg svg{position:absolute;inset:0;width:100%;height:100%;opacity:.6}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,.88fr);gap:clamp(32px,5vw,84px);align-items:end}
+.hero h1{font-family:var(--display);font-weight:300;font-size:clamp(3rem,8.2vw,7.4rem);line-height:.92;letter-spacing:-.032em;margin:.28em 0 .34em}
+.hero h1 .accent{
+  font-style:italic;font-weight:400;
+  background:linear-gradient(100deg,var(--pepper),var(--ochre));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero .sub{font-size:clamp(1.02rem,1.5vw,1.28rem);max-width:56ch;color:var(--ink-mid)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+
+.bigstats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);box-shadow:0 24px 60px -32px rgba(35,26,13,.25)}
+.bigstat{background:var(--paper-2);padding:24px 22px}
+.bigstat .num{font-family:var(--display);font-size:clamp(2rem,3.4vw,3rem);font-weight:500;letter-spacing:-.02em;line-height:1}
+.bigstat .num span{font-size:.52em;color:var(--ochre);letter-spacing:.02em}
+.bigstat .cap{font-family:var(--mono);font-size:.63rem;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-soft);margin-top:11px;line-height:1.75}
+.scrollcue{margin-top:clamp(40px,6vw,72px);display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
+.scrollcue .bar{width:64px;height:1px;background:var(--line-strong);position:relative;overflow:hidden}
+.scrollcue .bar::after{content:"";position:absolute;inset:0;width:26px;background:var(--pepper);animation:slide 2.2s ease-in-out infinite}
+@keyframes slide{0%{transform:translateX(-30px)}100%{transform:translateX(70px)}}
+
+/* ticker */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-2);overflow:hidden;padding:13px 0}
+.ticker-track{display:flex;gap:56px;white-space:nowrap;animation:tick 52s linear infinite;font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;color:var(--ink-mid);text-transform:uppercase}
+.ticker-track span b{color:var(--pepper);font-weight:500}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* section head */
+.sechead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:clamp(28px,5vw,72px);align-items:end;margin-bottom:clamp(38px,5vw,62px)}
+@media(max-width:900px){.sechead{grid-template-columns:1fr}}
+
+/* cards */
+.cards{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.cards.c4{grid-template-columns:repeat(4,1fr)}
+.cards.c2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--paper-2);padding:28px 26px;transition:background .35s,transform .35s,box-shadow .35s}
+.card:hover{background:#fff;transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(35,26,13,.28)}
+.card .icon{width:38px;height:38px;border:1px solid var(--line-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.72rem;color:var(--pepper);margin-bottom:18px}
+.card p{font-size:.95rem;margin-top:11px}
+.card .metric{font-family:var(--display);font-size:2.35rem;font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--pepper)}
+.card .metric small{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:12px}
+@media(max-width:1000px){.cards.c4{grid-template-columns:repeat(2,1fr)}.cards.c3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.cards.c4,.cards.c3,.cards.c2{grid-template-columns:1fr}}
+
+/* bar charts */
+.chart{display:flex;flex-direction:column;gap:15px}
+.barrow{display:grid;grid-template-columns:132px 1fr 110px;align-items:center;gap:16px}
+.barrow .lbl{font-family:var(--mono);font-size:.73rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-mid)}
+.bartrack{height:26px;background:rgba(35,26,13,.07);position:relative;overflow:hidden}
+.barfill{height:100%;width:0;transition:width 1.15s cubic-bezier(.2,.75,.25,1);position:relative}
+.barfill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22))}
+.barfill.red{background:linear-gradient(90deg,#96270f,var(--pepper))}
+.barfill.ochre{background:linear-gradient(90deg,#7c5410,var(--ochre))}
+.barfill.moss{background:linear-gradient(90deg,#3c521f,var(--moss))}
+.barfill.sky{background:linear-gradient(90deg,#274c5d,var(--sky))}
+.barrow .val{font-family:var(--mono);font-size:.82rem;text-align:right;color:var(--ink)}
+.barrow .val small{color:var(--ink-soft);font-size:.72em}
+
+/* donut */
+.mixwrap{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(28px,4vw,58px);align-items:center}
+.donut{width:100%;max-width:320px}
+.donut circle{transition:stroke-dashoffset 1.3s cubic-bezier(.2,.75,.25,1)}
+.mixlegend{display:flex;flex-direction:column;gap:18px}
+.mixrow{display:grid;grid-template-columns:16px 1fr;gap:14px;align-items:start}
+.mixrow .sw{width:14px;height:14px;border-radius:3px;margin-top:7px}
+.mixrow .mt{font-family:var(--display);font-size:1.22rem;font-weight:500}
+.mixrow .md{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:5px}
+.mixrow p{font-size:.92rem;margin-top:7px}
+
+/* ---------- MAP ---------- */
+.mapshell{
+  border:1px solid var(--line);background:
+    radial-gradient(900px 520px at 24% 12%, rgba(166,118,27,.08), transparent 60%),
+    radial-gradient(820px 560px at 82% 82%, rgba(191,59,34,.08), transparent 60%),
+    var(--paper-2);
+  display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);
+}
+@media(max-width:1060px){.mapshell{grid-template-columns:1fr}}
+.mapcanvas{position:relative;padding:18px 10px 8px;border-right:1px solid var(--line);min-height:520px}
+@media(max-width:1060px){.mapcanvas{border-right:none;border-bottom:1px solid var(--line)}}
+.mapcanvas svg{width:100%;height:auto;display:block}
+.mapbar{display:flex;flex-wrap:wrap;gap:8px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.tgl{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;
+  padding:8px 15px;border:1px solid var(--line-strong);background:transparent;color:var(--ink-mid);
+  cursor:pointer;transition:all .28s;border-radius:2px;
+}
+.tgl:hover{border-color:var(--pepper);color:var(--pepper)}
+.tgl.on{background:var(--pepper);border-color:var(--pepper);color:#fff}
+
+.mapnode{cursor:pointer}
+.mapnode circle{transition:r .3s,fill .3s,stroke .3s,stroke-width .3s}
+.mapnode:hover circle{stroke-width:3}
+.mapnode text{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;fill:#3a2c15;pointer-events:none}
+.mapnode.dim{opacity:.18}
+.flow{fill:none;stroke-linecap:round}
+.flow.imp{stroke:var(--sky);stroke-width:2.1;opacity:.75}
+.flow.dom{stroke:var(--ochre);stroke-width:2.3;opacity:.7}
+.flow.exp{stroke:var(--pepper);stroke-width:2.4;opacity:.75}
+.flow.hide{opacity:.08}
+.flowmove{stroke-dasharray:7 13;animation:dash 2.6s linear infinite}
+.flowmove.slow{animation-duration:4.2s}
+@keyframes dash{to{stroke-dashoffset:-40}}
+.pulse{animation:pulse 3.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3;r:9}50%{opacity:.05;r:17}}
+.zone-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;fill:#9b8a6a}
+
+.mappanel{padding:clamp(22px,3vw,34px);display:flex;flex-direction:column;gap:20px}
+.mappanel .ptag{display:flex;gap:8px;flex-wrap:wrap}
+.mp-title{font-family:var(--display);font-size:1.75rem;font-weight:500;line-height:1.12;letter-spacing:-.012em}
+.mp-role{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pepper);margin-bottom:12px}
+.mp-body{font-size:.97rem;color:var(--ink-mid)}
+.mp-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:4px}
+.mp-stat{background:var(--paper);padding:15px 16px}
+.mp-stat .v{font-family:var(--display);font-size:1.55rem;font-weight:500;color:var(--pepper);line-height:1.1}
+.mp-stat .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:7px;line-height:1.6}
+.mp-hint{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:15px}
+
+/* ---------- FARM CHAIN RAIL ---------- */
+.chainrail{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:1080px){.chainrail{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:640px){.chainrail{grid-template-columns:repeat(2,1fr)}}
+.cstep{
+  background:var(--paper-2);padding:20px 16px 18px;cursor:pointer;text-align:left;
+  border:none;font-family:var(--mono);position:relative;transition:background .3s;
+}
+.cstep:hover{background:#fff}
+.cstep.on{background:var(--pepper)}
+.cstep .cn{font-size:.62rem;letter-spacing:.22em;color:var(--pepper);transition:color .3s}
+.cstep.on .cn{color:rgba(255,255,255,.75)}
+.cstep .ct{font-family:var(--display);font-size:.98rem;font-weight:500;line-height:1.28;margin-top:10px;color:var(--ink);letter-spacing:-.01em;transition:color .3s}
+.cstep.on .ct{color:#fff}
+.cstep .cd{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:9px;transition:color .3s}
+.cstep.on .cd{color:rgba(255,255,255,.78)}
+.cstep::after{
+  content:"";position:absolute;right:-7px;top:50%;width:12px;height:12px;
+  background:var(--paper-3);border-right:1px solid var(--line);border-top:1px solid var(--line);
+  transform:translateY(-50%) rotate(45deg);z-index:2;
+}
+.cstep:last-child::after{display:none}
+@media(max-width:1080px){.cstep::after{display:none}}
+
+.chainpanel{border:1px solid var(--line);border-top:none;background:var(--paper-2);padding:clamp(24px,3.4vw,40px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,52px)}
+@media(max-width:880px){.chainpanel{grid-template-columns:1fr}}
+
+/* ---------- PH flow diagram ---------- */
+.phshell{border:1px solid var(--line);background:var(--paper-2);padding:clamp(16px,2.4vw,30px)}
+.phshell svg{width:100%;height:auto;display:block}
+.phnode rect{transition:fill .3s,stroke-width .3s}
+.phnode:hover rect{fill:#fff;stroke-width:2.4}
+.phnode{cursor:default}
+.phnode text{font-family:var(--mono);fill:#3a2c15;pointer-events:none}
+.phflow{fill:none;stroke-linecap:round}
+.phlabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;fill:#9b8a6a}
+
+/* ---------- companies ---------- */
+.filterbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.companies{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:1000px){.companies{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:660px){.companies{grid-template-columns:1fr}}
+.co{background:var(--paper-2);padding:26px 24px;transition:background .35s,opacity .35s,transform .35s}
+.co:hover{background:#fff;transform:translateY(-3px)}
+.co.hide{display:none}
+.co .rank{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;color:var(--pepper)}
+.co h3{margin:12px 0 8px}
+.co p{font-size:.93rem}
+.co .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;padding:.32em .68em;border-radius:999px;background:rgba(166,118,27,.14);color:var(--ochre)}
+.chip.g{background:rgba(82,112,47,.14);color:var(--moss)}
+.chip.b{background:rgba(51,98,122,.13);color:var(--sky)}
+
+/* seasonality */
+.season{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.mon{background:var(--paper-2);padding:18px 10px 15px;position:relative;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;transition:background .3s}
+.mon:hover{background:#fff}
+.mon .mname{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px}
+.mon .meter{width:100%;background:rgba(35,26,13,.07);position:relative;height:86px;display:flex;align-items:flex-end;overflow:hidden}
+.mon .meter i{display:block;width:100%;height:0;background:linear-gradient(180deg,var(--pepper),rgba(191,59,34,.32));transition:height 1s cubic-bezier(.2,.75,.25,1)}
+.mon .meter i.och{background:linear-gradient(180deg,var(--ochre),rgba(166,118,27,.3))}
+.mon .meter i.mos{background:linear-gradient(180deg,var(--moss),rgba(82,112,47,.3))}
+.mon .note{font-family:var(--mono);font-size:.57rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ochre);margin-top:9px;line-height:1.5}
+@media(max-width:900px){.season{grid-template-columns:repeat(6,1fr)}}
+@media(max-width:560px){.season{grid-template-columns:repeat(3,1fr)}}
+
+/* prices */
+.prices{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:1000px){.prices{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.prices{grid-template-columns:1fr}}
+.price{background:var(--paper-2);padding:26px 24px}
+.price .p{font-family:var(--display);font-size:clamp(1.9rem,2.6vw,2.5rem);font-weight:500;letter-spacing:-.022em;line-height:1}
+.price .u{font-family:var(--mono);font-size:.68rem;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-soft);margin-top:11px}
+.price .d{font-size:.88rem;margin-top:13px;color:var(--ink-mid)}
+.trend{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;margin-top:12px;padding:.28em .62em;border-radius:2px}
+.trend.up{background:rgba(82,112,47,.15);color:var(--moss)}
+.trend.down{background:rgba(191,59,34,.13);color:var(--pepper)}
+.trend.flat{background:rgba(166,118,27,.15);color:var(--ochre)}
+
+/* accordion */
+.process{border:1px solid var(--line);background:var(--paper-2)}
+.pstep{border-bottom:1px solid var(--line)}
+.pstep:last-child{border-bottom:none}
+.phead{
+  width:100%;background:transparent;border:none;color:var(--ink);cursor:pointer;
+  display:grid;grid-template-columns:64px 1fr 30px;align-items:center;gap:18px;
+  padding:22px clamp(18px,3vw,30px);text-align:left;transition:background .3s;font-family:var(--display);
+}
+.phead:hover{background:var(--paper-3)}
+.phead .no{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;color:var(--pepper)}
+.phead .t{font-size:1.16rem;font-weight:500;letter-spacing:-.008em}
+.phead .pm{position:relative;width:16px;height:16px;justify-self:end}
+.phead .pm::before,.phead .pm::after{content:"";position:absolute;background:var(--ochre);transition:transform .35s}
+.phead .pm::before{top:7px;left:0;width:16px;height:2px}
+.phead .pm::after{top:0;left:7px;width:2px;height:16px}
+.pstep.open .phead .pm::after{transform:rotate(90deg) scaleX(0)}
+.pbody{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.3,1)}
+.pbody-in{padding:0 clamp(18px,3vw,30px) 26px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:28px}
+@media(max-width:820px){.pbody-in{grid-template-columns:1fr}}
+.doclist{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start}
+
+/* table */
+table.hs{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.78rem}
+table.hs th{
+  text-align:left;padding:13px 15px;border-bottom:1px solid var(--line-strong);
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ochre);font-weight:500;
+}
+table.hs td{padding:14px 15px;border-bottom:1px solid var(--line);color:var(--ink-mid);vertical-align:top}
+table.hs tr:hover td{background:rgba(191,59,34,.05);color:var(--ink)}
+table.hs td:first-child{color:var(--pepper);white-space:nowrap}
+
+/* risks */
+.risks{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:860px){.risks{grid-template-columns:1fr}}
+.risk{background:var(--paper-2);padding:28px 26px;display:grid;grid-template-columns:44px 1fr;gap:20px}
+.risk .lvl{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;border:1px solid}
+.lvl.hi{border-color:var(--pepper);color:var(--pepper);background:rgba(191,59,34,.09)}
+.lvl.md{border-color:var(--ochre);color:var(--ochre);background:rgba(166,118,27,.1)}
+.lvl.lo{border-color:var(--moss);color:var(--moss);background:rgba(82,112,47,.1)}
+.risk p{font-size:.94rem;margin-top:9px}
+
+/* sustain */
+.sustain{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:920px){.sustain{grid-template-columns:1fr}}
+.sus{background:var(--paper-2);padding:30px 27px}
+.sus .badge{width:46px;height:46px;border-radius:12px;background:rgba(82,112,47,.13);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.72rem;color:var(--moss);margin-bottom:18px}
+.sus p{font-size:.94rem;margin-top:11px}
+
+/* footer */
+footer{background:var(--paper-3);border-top:1px solid var(--line);padding:clamp(56px,7vw,88px) clamp(20px,5vw,72px) 42px}
+.footgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.4fr) minmax(0,.8fr);gap:clamp(28px,4vw,64px)}
+@media(max-width:900px){.footgrid{grid-template-columns:1fr}}
+.srcs{columns:2;column-gap:36px}
+@media(max-width:620px){.srcs{columns:1}}
+.srcs li{
+  font-family:var(--mono);font-size:.71rem;line-height:1.85;color:var(--ink-mid);
+  list-style:none;break-inside:avoid;padding-left:16px;position:relative;margin-bottom:7px;
+}
+.srcs li::before{content:"→";position:absolute;left:0;color:var(--pepper)}
+.footnote{margin-top:52px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;font-family:var(--mono);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* tooltip */
+#tip{
+  position:fixed;pointer-events:none;opacity:0;transform:translate(-50%,-130%);
+  background:#231a0d;border:1px solid rgba(255,255,255,.15);padding:9px 13px;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:#f8f2e4;
+  z-index:2000;transition:opacity .18s;max-width:250px;line-height:1.6;
+}
+#tip b{color:#e8b04b;font-weight:500}
+
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .mixwrap{grid-template-columns:1fr}
+  .barrow{grid-template-columns:106px 1fr 88px;gap:11px}
+}
+@media(max-width:760px){.navlinks{display:none}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="tip"></div>
+
+<nav>
+  <div class="brand"><span class="dot"></span>VIETNAM PEPPER · SUPPLY CHAIN ATLAS</div>
+  <div class="navlinks">
+    <a href="#overview">Overview</a>
+    <a href="#farmers">Farmers</a>
+    <a href="#map">Chain Map</a>
+    <a href="#trade">Trade</a>
+    <a href="#philippines">Philippines</a>
+    <a href="#season">Seasonality</a>
+    <a href="#players">Players</a>
+    <a href="#logistics">Logistics</a>
+    <a href="#compliance">Compliance</a>
+    <a href="#outlook">Outlook</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <div class="mesh"></div>
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <g class="flowmove slow" opacity=".55">
+        <path class="flow exp" d="M-40,700 C280,600 520,660 820,420 C1080,215 1320,190 1660,120"/>
+        <path class="flow imp" d="M-40,300 C240,360 560,300 860,470 C1120,615 1360,690 1660,720"/>
+        <path class="flow dom" d="M-40,520 C300,470 620,540 900,520 C1180,500 1400,430 1660,420"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker reveal">Trade Dossier · Data through Oct–Nov 2026</div>
+      <h1 class="reveal d1">The <span class="accent">black gold</span> supply chain of Vietnam</h1>
+      <p class="sub reveal d2">
+        Vietnam is the world's largest pepper exporter — roughly 45% of global black pepper trade by value and over 80% of everything the United States imports.
+        This atlas traces the whole chain: from the smallholder's gate in the Central Highlands, through collectors and processing plants, to deep-water ports and global buyers —
+        including a spotlight on the Philippines, one of the most winnable frontier markets for Vietnamese pepper.
+      </p>
+      <div class="hero-meta reveal d3">
+        <span class="tag">HS 0904 · Piper spp.</span>
+        <span class="tag">Farm gate → Bill of lading</span>
+        <span class="tag">Record 2025: US$1.66 B</span>
+        <span class="tag">Philippines corridor: ~3–5 days</span>
+      </div>
+      <div class="scrollcue reveal d4"><span class="bar"></span> Scroll to explore the chain</div>
+    </div>
+
+    <div class="bigstats reveal d2">
+      <div class="bigstat">
+        <div class="num"><span class="count" data-target="1.66" data-dec="2">0</span><span>B</span></div>
+        <div class="cap">Export value 2025<br>all-time record</div>
+      </div>
+      <div class="bigstat">
+        <div class="num"><span class="count" data-target="192" data-dec="0">0</span><span>k t</span></div>
+        <div class="cap">Volume Jan–Aug 2026<br>+15.3% year on year</div>
+      </div>
+      <div class="bigstat">
+        <div class="num"><span class="count" data-target="110.5" data-dec="1">0</span><span>k ha</span></div>
+        <div class="cap">Cultivation area<br>smallholder dominated</div>
+      </div>
+      <div class="bigstat">
+        <div class="num"><span class="count" data-target="68" data-dec="0">0</span><span>%</span></div>
+        <div class="cap">Vietnam share of<br>Philippines pepper imports</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>2026 crop estimate <b>170,000 t (−12.8%)</b></span>
+    <span>Black pepper avg export price <b>US$6,372/t</b> (8M 2026)</span>
+    <span>White pepper avg export price <b>US$8,386/t</b></span>
+    <span>Pepper imports H1 2026 <b>45,198 t / US$257.7 M (+60%)</b></span>
+    <span>Farmgate <b>VND 135,000–139,000/kg</b> Sep 2026</span>
+    <span>Philippines pepper imports Aug 2026 <b>US$4.05 M · 68% from Vietnam</b></span>
+    <span>Philippines corridor <b>Cat Lai → Manila ≈ 3–5 days</b></span>
+    <span>ATIGA Form D <b>0% preferential tariff · ASEAN</b></span>
+    <span>2026 crop estimate <b>170,000 t (−12.8%)</b></span>
+    <span>Black pepper avg export price <b>US$6,372/t</b> (8M 2026)</span>
+    <span>White pepper avg export price <b>US$8,386/t</b></span>
+    <span>Pepper imports H1 2026 <b>45,198 t / US$257.7 M (+60%)</b></span>
+    <span>Farmgate <b>VND 135,000–139,000/kg</b> Sep 2026</span>
+    <span>Philippines pepper imports Aug 2026 <b>US$4.05 M · 68% from Vietnam</b></span>
+    <span>Philippines corridor <b>Cat Lai → Manila ≈ 3–5 days</b></span>
+    <span>ATIGA Form D <b>0% preferential tariff · ASEAN</b></span>
+  </div>
+</div>
+
+<!-- ================= OVERVIEW ================= -->
+<section id="overview" class="alt">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">01 — Global position</div>
+        <h2 class="reveal d1">One country sets the <em>world's pepper price</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        Global black pepper trade was worth about US$3.24 billion in 2025, with the wider pepper market valued around US$2.3 billion and growing near 6% a year.
+        Vietnam alone accounted for roughly US$1.5 billion of world black pepper exports — more than the next four exporters combined.
+      </p>
+    </div>
+
+    <div class="cards c4 reveal">
+      <div class="card"><div class="metric">45.2<small>% of world black pepper exports, 2025</small></div><p>Vietnam's share of global black pepper export value — US$1.5 bn of a US$3.24 bn market.</p></div>
+      <div class="card"><div class="metric">83.7<small>% black pepper share of HS lines</small></div><p>Unground black pepper alone carries 68.8% of export value; crushed/ground adds 19.8%.</p></div>
+      <div class="card"><div class="metric">80<small>%+ of US pepper imports</small></div><p>Vietnam's volume share of the US market rose sharply in 2026 as Indonesian shipments fell.</p></div>
+      <div class="card"><div class="metric">170<small>kt crop 2026 (−12.8%)</small></div><p>Against global output near 530 kt and world stocks near 170 kt — supply is tight while exports grow.</p></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,64px);margin-top:clamp(44px,5vw,72px)" class="reveal">
+      <div>
+        <h4 style="margin-bottom:22px">Top black pepper exporters — 2025, US$ million</h4>
+        <div class="chart" data-chart>
+          <div class="barrow"><div class="lbl">Vietnam</div><div class="bartrack"><div class="barfill red" data-w="100"></div></div><div class="val">1,500 <small>45.2%</small></div></div>
+          <div class="barrow"><div class="lbl">Brazil</div><div class="bartrack"><div class="barfill ochre" data-w="34.5"></div></div><div class="val">517.8 <small>16.0%</small></div></div>
+          <div class="barrow"><div class="lbl">Indonesia</div><div class="bartrack"><div class="barfill ochre" data-w="16.4"></div></div><div class="val">245.9 <small>7.6%</small></div></div>
+          <div class="barrow"><div class="lbl">India</div><div class="bartrack"><div class="barfill moss" data-w="9"></div></div><div class="val">135.1 <small>4.2%</small></div></div>
+          <div class="barrow"><div class="lbl">Germany</div><div class="bartrack"><div class="barfill moss" data-w="8.4"></div></div><div class="val">125.7 <small>3.9%</small></div></div>
+          <div class="barrow"><div class="lbl">Sri Lanka</div><div class="bartrack"><div class="barfill sky" data-w="6.8"></div></div><div class="val">101.6 <small>3.1%</small></div></div>
+          <div class="barrow"><div class="lbl">Netherlands</div><div class="bartrack"><div class="barfill sky" data-w="6.6"></div></div><div class="val">98.6 <small>3.0%</small></div></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin-bottom:22px">Top black pepper importers — 2025, US$ million</h4>
+        <div class="chart" data-chart>
+          <div class="barrow"><div class="lbl">United States</div><div class="bartrack"><div class="barfill red" data-w="100"></div></div><div class="val">611.9 <small>19.8%</small></div></div>
+          <div class="barrow"><div class="lbl">India</div><div class="bartrack"><div class="barfill ochre" data-w="40.2"></div></div><div class="val">245.7 <small>7.9%</small></div></div>
+          <div class="barrow"><div class="lbl">Germany</div><div class="bartrack"><div class="barfill ochre" data-w="39"></div></div><div class="val">238.3 <small>7.7%</small></div></div>
+          <div class="barrow"><div class="lbl">Vietnam</div><div class="bartrack"><div class="barfill sky" data-w="32.7"></div></div><div class="val">199.9 <small>6.5%</small></div></div>
+          <div class="barrow"><div class="lbl">France</div><div class="bartrack"><div class="barfill moss" data-w="17.3"></div></div><div class="val">105.8 <small>3.4%</small></div></div>
+          <div class="barrow"><div class="lbl">China</div><div class="bartrack"><div class="barfill moss" data-w="13"></div></div><div class="val">~79 <small>rising</small></div></div>
+        </div>
+        <p style="margin-top:20px;font-size:.92rem">
+          Note the fourth row: Vietnam is itself the world's 4th-largest black pepper <em>importer</em>. That is not consumption — it is the raw-material intake of a processing and re-export industry.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= FARMERS ================= -->
+<section id="farmers">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">02 — From the farmer's gate</div>
+        <h2 class="reveal d1">Where the chain is really <em>made — or broken</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        Vietnamese pepper starts with smallholders on one- to two-hectare plots, intercropped with coffee in the Central Highlands.
+        Nearly all growers are organised into farmer groups inside "safe pepper" supply chains — and collectors, the first intermediaries, set the pace of everything downstream.
+        Click through the seven stages from vine to processing handover.
+      </p>
+    </div>
+
+    <div class="chainrail reveal" id="chainrail">
+      <button class="cstep on" data-stage="1"><div class="cn">STAGE 01</div><div class="ct">Planting &amp; vines</div><div class="cd">Year 0–2</div></button>
+      <button class="cstep" data-stage="2"><div class="cn">STAGE 02</div><div class="ct">Farmer groups &amp; training</div><div class="cd">Organisation</div></button>
+      <button class="cstep" data-stage="3"><div class="cn">STAGE 03</div><div class="ct">Harvest</div><div class="cd">Jan–May</div></button>
+      <button class="cstep" data-stage="4"><div class="cn">STAGE 04</div><div class="ct">On-farm drying</div><div class="cd">Post-harvest</div></button>
+      <button class="cstep" data-stage="5"><div class="cn">STAGE 05</div><div class="ct">Farm-gate sale</div><div class="cd">Price discovery</div></button>
+      <button class="cstep" data-stage="6"><div class="cn">STAGE 06</div><div class="ct">Collectors &amp; aggregation</div><div class="cd">First mile</div></button>
+      <button class="cstep" data-stage="7"><div class="cn">STAGE 07</div><div class="ct">Trader handover</div><div class="cd">Exit to industry</div></button>
+    </div>
+
+    <div class="chainpanel reveal">
+      <div>
+        <div class="mp-role" id="chRole">Farm layer · Year 0–2</div>
+        <div class="mp-title" id="chTitle">Planting &amp; vines</div>
+        <p class="mp-body" id="chBody" style="margin-top:14px">
+          Pepper is a perennial vine (Piper nigrum) taking two to three years to reach first commercial harvest. Vines are trained on living or concrete poles and usually intercropped with coffee,
+          cashew or fruit trees — an income buffer for smallholders. National cultivation area stood near 110,500 hectares at the end of 2024, with Dak Lak alone accounting for roughly 41% of
+          Central Highlands pepper area.
+        </p>
+      </div>
+      <div class="mp-stats" id="chStats">
+        <div class="mp-stat"><div class="v">2–3 yrs</div><div class="k">To first harvest</div></div>
+        <div class="mp-stat"><div class="v">~1–2 ha</div><div class="k">Typical smallholder plot</div></div>
+        <div class="mp-stat"><div class="v">110.5k ha</div><div class="k">National area, end-2024</div></div>
+        <div class="mp-stat"><div class="v">Intercrop</div><div class="k">With coffee &amp; fruit</div></div>
+      </div>
+    </div>
+
+    <div class="cards c4 reveal" style="margin-top:clamp(34px,4vw,56px)">
+      <div class="card">
+        <h4>Farmer economics</h4>
+        <p style="margin-top:14px">Farmgate ran <strong>VND 135,000–139,000/kg</strong> in Aug–Sep 2026 versus VND 145,000–150,000 a year earlier. Smallholders are the most price-exposed actors in the chain — income falls immediately when prices ease, while input costs lag.</p>
+      </div>
+      <div class="card">
+        <h4>Quality control starts in the village</h4>
+        <p style="margin-top:14px">Research identifies village-level <strong>harvesting, drying and initial storage</strong> as the critical SPS control points. Poor on-farm drying creates mould and aflatoxin risk that no later processing can repair.</p>
+      </div>
+      <div class="card">
+        <h4>Collectors: the first intermediaries</h4>
+        <p style="margin-top:14px">Local collectors — often farmers themselves — bulk small lots, quote daily prices and move crop to district traders. Cooperatives can bypass part of this layer and pay above market price for traceable lots.</p>
+      </div>
+      <div class="card">
+        <h4>Traceability at the buying point</h4>
+        <p style="margin-top:14px">Exporters and development programmes increasingly run digital traceability apps at buying stations, linking farmer groups to lots destined for Europe and North America.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= MAP ================= -->
+<section id="map" class="alt">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">03 — Interactive chain map</div>
+        <h2 class="reveal d1">From highland vines to <em>world tables</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        Click any node — province, processing hub, port, import origin or destination market — to open its role in the chain.
+        Use the toggles to isolate the domestic farm-to-port flow, the imported raw-material loop, or the outbound market corridors.
+      </p>
+    </div>
+
+    <div class="mapshell reveal">
+      <div>
+        <div class="mapbar">
+          <button class="tgl on" data-view="all">Full network</button>
+          <button class="tgl" data-view="dom">Farm → Port</button>
+          <button class="tgl" data-view="imp">Import &amp; re-export loop</button>
+          <button class="tgl" data-view="exp">Export corridors</button>
+        </div>
+        <div class="mapcanvas">
+          <svg viewBox="0 0 1200 900" role="img" aria-label="Vietnam pepper supply chain map">
+            <defs>
+              <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#e9d9b6"/><stop offset="100%" stop-color="#dcc7a0"/>
+              </linearGradient>
+            </defs>
+
+            <text class="zone-label" x="60" y="70">Import origins</text>
+            <text class="zone-label" x="470" y="70">Vietnam · production &amp; processing</text>
+            <text class="zone-label" x="905" y="70">Destination markets</text>
+
+            <g id="flows-imp">
+              <path class="flow imp flowmove" d="M262,556 C380,540 470,590 560,660"/>
+              <path class="flow imp flowmove" d="M262,700 C420,690 560,672 700,652"/>
+              <path class="flow imp flowmove slow" d="M262,812 C440,800 590,720 700,658"/>
+            </g>
+            <g id="flows-dom">
+              <path class="flow dom flowmove" d="M600,538 C610,570 616,600 622,640"/>
+              <path class="flow dom flowmove" d="M582,462 C592,510 604,570 620,636"/>
+              <path class="flow dom flowmove" d="M628,610 C630,620 630,630 624,642"/>
+              <path class="flow dom flowmove" d="M600,646 C640,650 680,652 706,654"/>
+              <path class="flow dom flowmove slow" d="M632,326 C646,336 662,342 670,348"/>
+              <path class="flow dom flowmove slow" d="M622,648 C640,520 660,430 674,392"/>
+              <path class="flow dom flowmove slow" d="M622,648 C620,470 636,200 656,104"/>
+            </g>
+            <g id="flows-exp">
+              <path class="flow exp flowmove" d="M714,650 C800,560 840,300 886,130"/>
+              <path class="flow exp flowmove" d="M714,650 C800,540 840,380 886,254"/>
+              <path class="flow exp flowmove slow" d="M714,650 C790,600 830,420 886,378"/>
+              <path class="flow exp flowmove slow" d="M714,650 C790,640 830,540 886,486"/>
+              <path class="flow exp flowmove" d="M714,650 C780,660 830,620 886,584"/>
+              <path class="flow exp flowmove slow" d="M714,650 C770,690 820,700 886,700"/>
+              <path class="flow exp flowmove slow" d="M676,344 C760,300 830,320 886,372"/>
+              <path class="flow exp flowmove slow" d="M662,102 C760,90 830,110 886,128"/>
+            </g>
+
+            <g transform="translate(430,20) scale(0.92)">
+              <path fill="url(#land)" stroke="rgba(35,26,13,.32)" stroke-width="1.6"
+                d="M120,60 C160,38 180,32 206,34 C238,38 258,52 262,72 C258,110 252,150 248,210
+                   C245,252 244,276 245,300 C247,322 254,342 262,356 C268,382 270,406 272,430
+                   C280,466 286,494 292,520 C302,556 310,584 318,610 C328,632 334,652 340,668
+                   C334,692 328,708 322,720 C298,742 272,756 268,762 C240,776 218,784 212,782
+                   C204,790 198,794 196,796 C176,790 164,776 160,762 C158,736 162,716 168,700
+                   C160,676 148,656 150,640 C138,624 126,610 120,600 C110,570 102,548 95,520
+                   C104,486 114,456 120,430 C112,402 104,382 105,360 C114,336 122,318 128,300
+                   C118,272 110,252 110,230 C118,204 128,182 135,160 C128,122 122,88 120,60 Z"/>
+            </g>
+
+            <g class="mapnode" data-id="cambodia" data-cat="import">
+              <rect x="60" y="524" width="204" height="64" fill="rgba(51,98,122,.1)" stroke="rgba(51,98,122,.55)" stroke-width="1.4" rx="3"/>
+              <text x="80" y="552">CAMBODIA</text><text x="80" y="572" style="fill:#4a6f80;font-size:10px">LAND BORDER · #1 SUPPLIER</text>
+            </g>
+            <g class="mapnode" data-id="brazil" data-cat="import">
+              <rect x="60" y="668" width="204" height="64" fill="rgba(51,98,122,.1)" stroke="rgba(51,98,122,.55)" stroke-width="1.4" rx="3"/>
+              <text x="80" y="696">BRAZIL</text><text x="80" y="716" style="fill:#4a6f80;font-size:10px">OCEAN · +81% GLOBAL EXPORTS</text>
+            </g>
+            <g class="mapnode" data-id="indonesia" data-cat="import">
+              <rect x="60" y="780" width="204" height="64" fill="rgba(51,98,122,.1)" stroke="rgba(51,98,122,.55)" stroke-width="1.4" rx="3"/>
+              <text x="80" y="808">INDONESIA</text><text x="80" y="828" style="fill:#4a6f80;font-size:10px">MUNTOK WHITE PEPPER</text>
+            </g>
+
+            <g class="mapnode" data-id="quangtri" data-cat="origin">
+              <circle class="pulse" cx="644" cy="324" r="9" fill="rgba(166,118,27,.35)"/>
+              <circle cx="644" cy="324" r="7" fill="#a6761b" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="656" y="320">QUANG TRI</text>
+            </g>
+            <g class="mapnode" data-id="gialai" data-cat="origin">
+              <circle class="pulse" cx="582" cy="462" r="9" fill="rgba(166,118,27,.35)"/>
+              <circle cx="582" cy="462" r="7" fill="#a6761b" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="502" y="458">GIA LAI</text>
+            </g>
+            <g class="mapnode" data-id="daklak" data-cat="origin">
+              <circle class="pulse" cx="600" cy="538" r="9" fill="rgba(166,118,27,.35)"/>
+              <circle cx="600" cy="538" r="8" fill="#a6761b" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="512" y="534">DAK LAK</text>
+            </g>
+            <g class="mapnode" data-id="daknong" data-cat="origin">
+              <circle class="pulse" cx="568" cy="592" r="9" fill="rgba(166,118,27,.35)"/>
+              <circle cx="568" cy="592" r="7" fill="#a6761b" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="452" y="592">DAK NONG</text>
+            </g>
+            <g class="mapnode" data-id="lamdong" data-cat="origin">
+              <circle class="pulse" cx="628" cy="610" r="9" fill="rgba(166,118,27,.35)"/>
+              <circle cx="628" cy="610" r="7" fill="#a6761b" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="642" y="606">LAM DONG</text>
+            </g>
+            <g class="mapnode" data-id="binhphuoc" data-cat="origin">
+              <circle class="pulse" cx="600" cy="652" r="9" fill="rgba(166,118,27,.35)"/>
+              <circle cx="600" cy="652" r="7" fill="#a6761b" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="472" y="668">BINH PHUOC</text>
+            </g>
+            <g class="mapnode" data-id="kiengiang" data-cat="import">
+              <circle cx="592" cy="704" r="7" fill="#33627a" stroke="#fdfaf2" stroke-width="2"/>
+              <text x="536" y="732">KIEN GIANG</text>
+            </g>
+
+            <g class="mapnode" data-id="hub" data-cat="origin">
+              <rect x="590" y="712" width="132" height="52" fill="rgba(166,118,27,.16)" stroke="var(--ochre)" stroke-width="1.6" rx="3"/>
+              <text x="604" y="736" style="fill:#5c4310">PROCESSING HUB</text>
+              <text x="604" y="754" style="fill:#8a6a2c;font-size:9.5px">HCMC · BINH DUONG · DONG NAI</text>
+            </g>
+
+            <g class="mapnode" data-id="haiphong" data-cat="port">
+              <rect x="648" y="86" width="26" height="26" fill="var(--pepper)" stroke="#fdfaf2" stroke-width="2" rx="2"/>
+              <text x="682" y="104">HAI PHONG</text>
+            </g>
+            <g class="mapnode" data-id="danang" data-cat="port">
+              <rect x="658" y="336" width="26" height="26" fill="var(--pepper)" stroke="#fdfaf2" stroke-width="2" rx="2"/>
+              <text x="692" y="354">DA NANG</text>
+            </g>
+            <g class="mapnode" data-id="chulai" data-cat="port">
+              <rect x="664" y="378" width="26" height="26" fill="var(--pepper)" stroke="#fdfaf2" stroke-width="2" rx="2"/>
+              <text x="698" y="396">CHU LAI</text>
+            </g>
+            <g class="mapnode" data-id="catlai" data-cat="port">
+              <rect x="698" y="640" width="30" height="30" fill="var(--pepper)" stroke="#fdfaf2" stroke-width="2" rx="2"/>
+              <text x="736" y="660">CAT LAI / CAI MEP</text>
+            </g>
+
+            <g class="mapnode" data-id="usa" data-cat="market">
+              <rect x="886" y="100" width="252" height="64" fill="rgba(191,59,34,.1)" stroke="rgba(191,59,34,.55)" stroke-width="1.5" rx="3"/>
+              <text x="908" y="128">UNITED STATES</text><text x="908" y="148" style="fill:#a2402a;font-size:10px">#1 BUYER · 80%+ IMPORT SHARE</text>
+            </g>
+            <g class="mapnode" data-id="eu" data-cat="market">
+              <rect x="886" y="224" width="252" height="64" fill="rgba(191,59,34,.1)" stroke="rgba(191,59,34,.55)" stroke-width="1.5" rx="3"/>
+              <text x="908" y="252">EUROPE</text><text x="908" y="272" style="fill:#a2402a;font-size:10px">DE · NL · FR · ES RE-EXPORT HUBS</text>
+            </g>
+            <g class="mapnode" data-id="china" data-cat="market">
+              <rect x="886" y="348" width="252" height="64" fill="rgba(191,59,34,.1)" stroke="rgba(191,59,34,.55)" stroke-width="1.5" rx="3"/>
+              <text x="908" y="376">CHINA</text><text x="908" y="396" style="fill:#a2402a;font-size:10px">FASTEST GROWING · +54% TO +64%</text>
+            </g>
+            <g class="mapnode" data-id="india" data-cat="market">
+              <rect x="886" y="456" width="252" height="64" fill="rgba(191,59,34,.1)" stroke="rgba(191,59,34,.55)" stroke-width="1.5" rx="3"/>
+              <text x="908" y="484">INDIA &amp; SOUTH ASIA</text><text x="908" y="504" style="fill:#a2402a;font-size:10px">PROCESSOR &amp; BUYER</text>
+            </g>
+            <g class="mapnode" data-id="uae" data-cat="market">
+              <rect x="886" y="554" width="252" height="64" fill="rgba(191,59,34,.1)" stroke="rgba(191,59,34,.55)" stroke-width="1.5" rx="3"/>
+              <text x="908" y="582">UAE &amp; GULF</text><text x="908" y="602" style="fill:#a2402a;font-size:10px">ENTREPOT · TOP-5 MARKET</text>
+            </g>
+            <g class="mapnode" data-id="philippines" data-cat="market">
+              <rect x="886" y="668" width="252" height="64" fill="rgba(191,59,34,.1)" stroke="rgba(191,59,34,.55)" stroke-width="1.5" rx="3"/>
+              <text x="908" y="696">PHILIPPINES &amp; ASEAN</text><text x="908" y="716" style="fill:#a2402a;font-size:10px">3–5 DAYS · 68% VN SHARE</text>
+            </g>
+
+            <g transform="translate(60,860)">
+              <circle cx="6" cy="6" r="6" fill="#a6761b"/><text class="zone-label" x="22" y="10">Origins</text>
+              <rect x="110" width="13" height="13" fill="var(--pepper)" y="-1"/><text class="zone-label" x="132" y="10">Ports</text>
+              <rect x="196" width="13" height="13" fill="rgba(51,98,122,.55)" y="-1"/><text class="zone-label" x="218" y="10">Imports</text>
+              <rect x="300" width="13" height="13" fill="rgba(191,59,34,.55)" y="-1"/><text class="zone-label" x="322" y="10">Markets</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <aside class="mappanel" id="mappanel">
+        <div>
+          <div class="mp-role" id="mpRole">Selected node</div>
+          <div class="mp-title" id="mpTitle">Vietnam pepper supply chain</div>
+        </div>
+        <div class="ptag" id="mpTags"></div>
+        <p class="mp-body" id="mpBody">
+          The chain runs through five layers: smallholder farms in the Central Highlands and south-eastern belt; village collectors and provincial traders;
+          processing plants around Ho Chi Minh City and in the producing provinces; deep-water container ports; and importers, blenders and retail brands across 100+ countries.
+          A parallel loop brings raw pepper in from Cambodia, Brazil and Indonesia for processing and re-export.
+        </p>
+        <div class="mp-stats" id="mpStats">
+          <div class="mp-stat"><div class="v">5</div><div class="k">Chain layers</div></div>
+          <div class="mp-stat"><div class="v">100+</div><div class="k">Destination countries</div></div>
+          <div class="mp-stat"><div class="v">~40%</div><div class="k">Of world pepper supply</div></div>
+          <div class="mp-stat"><div class="v">4</div><div class="k">HS commodity lines</div></div>
+        </div>
+        <div class="mp-hint">Tip — click a province, port, import origin or market box on the map.</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= TRADE ================= -->
+<section id="trade">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">04 — Trade dashboard</div>
+        <h2 class="reveal d1">Volume-led growth, <em>record value</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        2025 closed at a record US$1.66 billion as prices spiked. 2026 is different: volume is up 15.3% while average prices are about 4% lower —
+        the industry is growing through tonnage and imported feedstock, and year-to-date figures point to a new full-year record.
+      </p>
+    </div>
+
+    <div class="cards c3 reveal" style="margin-bottom:clamp(38px,5vw,64px)">
+      <div class="card">
+        <div class="icon">25</div>
+        <h3>2024 — base year</h3>
+        <p>≈250,000 t of black pepper exported for US$1.32 billion. Prices began their climb and five-month value was already 20.6% above 2023.</p>
+      </div>
+      <div class="card">
+        <div class="icon">26</div>
+        <h3>2025 — the record</h3>
+        <p>US$1.66 billion total pepper export turnover, with December alone adding US$26.6 million of white pepper. December average: US$6,485/t black.</p>
+      </div>
+      <div class="card">
+        <div class="icon">27</div>
+        <h3>2026 — run rate</h3>
+        <p>192,000 t / US$1.25 bn by end-August; ≈214,400 t / US$1.4 bn by end-September (+15% volume, +10.2% value) — on course to surpass 2025.</p>
+      </div>
+    </div>
+
+    <div class="mixwrap reveal">
+      <svg class="donut" viewBox="0 0 200 200" data-chart>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(35,26,13,.08)" stroke-width="26"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#bf3b22" stroke-width="26"
+          stroke-dasharray="302.6 137.2" stroke-dashoffset="0" transform="rotate(-90 100 100)" data-donut="302.6"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#a6761b" stroke-width="26"
+          stroke-dasharray="87.1 352.7" stroke-dashoffset="-302.6" transform="rotate(-90 100 100)" data-donut="87.1"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#52702f" stroke-width="26"
+          stroke-dasharray="50.1 389.7" stroke-dashoffset="-389.7" transform="rotate(-90 100 100)" data-donut="50.1"/>
+        <text x="100" y="92" text-anchor="middle" style="font-family:'Fraunces',serif;font-size:30px;fill:#231a0d">68.8%</text>
+        <text x="100" y="118" text-anchor="middle" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;fill:#8a7a5d">UNGROUNDED BLACK</text>
+      </svg>
+
+      <div>
+        <h4 style="margin-bottom:22px">Export value mix by product line · Jan–Jul 2026</h4>
+        <div class="mixlegend">
+          <div class="mixrow">
+            <div class="sw" style="background:#bf3b22"></div>
+            <div>
+              <div class="mt">Unground black pepper — HS 090411</div>
+              <div class="md">68.8% of pepper export value</div>
+              <p>The dominant line: machine-cleaned, ASTA-grade and steam-sterilised whole peppercorns in 500 g/l and 550 g/l densities, shipped in 25–50 kg bags or 20' FCL bulk.</p>
+            </div>
+          </div>
+          <div class="mixrow">
+            <div class="sw" style="background:#a6761b"></div>
+            <div>
+              <div class="mt">Crushed &amp; ground pepper — HS 090412 / 090422</div>
+              <div class="md">19.8% of export value</div>
+              <p>The value-added segment the industry is being pushed to grow — grinding, sterilisation and custom blending for food manufacturers and seasoning houses.</p>
+            </div>
+          </div>
+          <div class="mixrow">
+            <div class="sw" style="background:#52702f"></div>
+            <div>
+              <div class="mt">White pepper — HS 090421 / 090422</div>
+              <div class="md">16.3% of export value · ~30% price premium</div>
+              <p>Soaked, washed and hulled white pepper sells around US$8,386/t versus US$6,372/t for black — the premium end of the Vietnamese basket.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,64px);margin-top:clamp(44px,5vw,72px)" class="reveal">
+      <div>
+        <h4 style="margin-bottom:22px">World pepper export leaders — H1 2026, US$ million (HS 0904)</h4>
+        <div class="chart" data-chart>
+          <div class="barrow"><div class="lbl">Vietnam</div><div class="bartrack"><div class="barfill red" data-w="100"></div></div><div class="val">762.0 <small>62.3%</small></div></div>
+          <div class="barrow"><div class="lbl">Indonesia</div><div class="bartrack"><div class="barfill ochre" data-w="15.2"></div></div><div class="val">116.1 <small>9.5%</small></div></div>
+          <div class="barrow"><div class="lbl">Peru</div><div class="bartrack"><div class="barfill ochre" data-w="13.8"></div></div><div class="val">105.0 <small>8.6%</small></div></div>
+          <div class="barrow"><div class="lbl">India</div><div class="bartrack"><div class="barfill moss" data-w="9.2"></div></div><div class="val">69.9 <small>5.7%</small></div></div>
+          <div class="barrow"><div class="lbl">Mexico</div><div class="bartrack"><div class="barfill moss" data-w="9.2"></div></div><div class="val">69.8 <small>5.7%</small></div></div>
+          <div class="barrow"><div class="lbl">Sri Lanka</div><div class="bartrack"><div class="barfill sky" data-w="3.9"></div></div><div class="val">29.5 <small>2.4%</small></div></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin-bottom:22px">Vietnam's raw-material imports — the re-export engine</h4>
+        <div class="cards c2" style="border:none">
+          <div class="card" style="padding:22px"><div class="metric" style="font-size:1.9rem">45,198<small>tonnes imported, H1 2026</small></div></div>
+          <div class="card" style="padding:22px"><div class="metric" style="font-size:1.9rem">US$257.7 M<small>import value · +60% volume</small></div></div>
+        </div>
+        <div class="chart" data-chart style="margin-top:26px">
+          <div class="barrow"><div class="lbl">Cambodia</div><div class="bartrack"><div class="barfill sky" data-w="100"></div></div><div class="val">Largest</div></div>
+          <div class="barrow"><div class="lbl">Brazil</div><div class="bartrack"><div class="barfill sky" data-w="72"></div></div><div class="val">~19 kt YTD</div></div>
+          <div class="barrow"><div class="lbl">Indonesia</div><div class="bartrack"><div class="barfill sky" data-w="42"></div></div><div class="val">3rd</div></div>
+        </div>
+        <p style="margin-top:20px;font-size:.92rem">
+          With the 2026 domestic crop down 12.8%, processors increasingly blend imported pepper — cleaned, sterilised, graded and re-exported under Vietnamese brands and certifications.
+          Peppercorns also cross the land border from Cambodia into Kien Giang and Tay Ninh before trucking to the Ho Chi Minh City cluster.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= PHILIPPINES ================= -->
+<section id="philippines" class="alt">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">05 — Market spotlight</div>
+        <h2 class="reveal d1">The Philippines: the <em>most winnable</em> frontier market</h2>
+      </div>
+      <p class="lede reveal d2">
+        The Philippines grows almost no pepper of its own and imports nearly all of it — and around two-thirds of that import value already comes from Vietnam.
+        In August 2026 the Philippines bought US$4.05 million of pepper, US$2.78 million of it from Vietnam.
+        With no domestic crop to defend, short sea lanes and ASEAN tariff preference, it is arguably the lowest-friction market to consolidate on the whole map.
+      </p>
+    </div>
+
+    <div class="cards c4 reveal">
+      <div class="card"><div class="metric">US$4.05 M<small>Philippines pepper imports, Aug 2026</small></div><p>A steady US$4–5 million-per-month import market with essentially no domestic production behind it.</p></div>
+      <div class="card"><div class="metric">~68%<small>Import value share held by Vietnam</small></div><p>US$2.78 million of the August 2026 total came from Vietnam — the dominant supplier in a highly concentrated market.</p></div>
+      <div class="card"><div class="metric">100+<small>Active pepper importing companies</small></div><p>A broad but concentrated buyer base of food-ingredient importers and distributors around Manila, Cebu and Davao.</p></div>
+      <div class="card"><div class="metric">3–5<small>Days sea transit · Cat Lai → Manila</small></div><p>Short, frequent, cheap sailings versus Europe or the Americas — plus 0% preferential tariff with an ATIGA Form D.</p></div>
+    </div>
+
+    <h4 class="reveal" style="margin:clamp(40px,5vw,64px) 0 20px">Why demand keeps growing</h4>
+    <div class="cards c3 reveal">
+      <div class="card">
+        <div class="icon">FM</div>
+        <h3>Food manufacturing pull</h3>
+        <p>Philippine spices &amp; seasonings demand is driven by meat and poultry processing, snacks and convenience foods, and soups, sauces and dressings — exactly the segments that buy bulk black pepper and blends.</p>
+      </div>
+      <div class="card">
+        <div class="icon">FS</div>
+        <h3>Foodservice &amp; QSR expansion</h3>
+        <p>A fast-growing restaurant and quick-service sector lifts demand for ready-made seasonings and standardised spice specs — a natural fit for Vietnamese steam-sterilised, ASTA-grade supply.</p>
+      </div>
+      <div class="card">
+        <div class="icon">RT</div>
+        <h3>Retail &amp; sachet culture</h3>
+        <p>Sachet-format retail is a Philippine specialty. Small-format ground pepper and blends offer Vietnamese exporters a higher-margin channel beyond bulk 500 g/l commodity cargo.</p>
+      </div>
+    </div>
+
+    <h4 class="reveal" style="margin:clamp(40px,5vw,64px) 0 20px">The export supply chain to the Philippines</h4>
+    <div class="phshell reveal">
+      <svg viewBox="0 0 1200 480" role="img" aria-label="Vietnam to Philippines pepper export supply chain">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#bf3b22"/>
+          </marker>
+        </defs>
+
+        <text class="phlabel" x="30" y="46">Vietnam side</text>
+        <text class="phlabel" x="700" y="46">Sea corridor · ≈ 3–5 days</text>
+        <text class="phlabel" x="1010" y="46">Philippines side</text>
+
+        <!-- flows -->
+        <g>
+          <path class="phflow flowmove" stroke="#a6761b" stroke-width="2.2" opacity=".75" d="M200,220 L242,220" marker-end="url(#arrow)"/>
+          <path class="phflow flowmove" stroke="#a6761b" stroke-width="2.2" opacity=".75" d="M430,220 L472,220" marker-end="url(#arrow)"/>
+          <path class="phflow flowmove" stroke="#bf3b22" stroke-width="2.4" opacity=".8" d="M660,220 C720,220 730,220 786,220" marker-end="url(#arrow)"/>
+          <path class="phflow flowmove" stroke="#bf3b22" stroke-width="2.4" opacity=".8" d="M975,220 L1012,220" marker-end="url(#arrow)"/>
+          <path class="phflow flowmove slow" stroke="#33627a" stroke-width="1.9" opacity=".7" d="M1095,268 C1095,330 700,330 235,330 C235,300 235,285 235,268" marker-end="url(#arrow)"/>
+        </g>
+
+        <!-- node: farm gate -->
+        <g class="phnode">
+          <rect x="30" y="180" width="170" height="88" fill="rgba(166,118,27,.12)" stroke="var(--ochre)" stroke-width="1.6" rx="4"/>
+          <text x="48" y="212" style="font-size:11px;letter-spacing:.14em">FARM GATE</text>
+          <text x="48" y="232" style="font-size:9.5px;fill:#8a7a5d">HIGHLAND FARMS · COLLECTORS</text>
+          <text x="48" y="250" style="font-size:9.5px;fill:#8a7a5d">+ IMPORTED FEEDSTOCK</text>
+        </g>
+        <!-- node: processing -->
+        <g class="phnode">
+          <rect x="250" y="180" width="180" height="88" fill="rgba(166,118,27,.12)" stroke="var(--ochre)" stroke-width="1.6" rx="4"/>
+          <text x="268" y="212" style="font-size:11px;letter-spacing:.14em">PROCESSING &amp; QC</text>
+          <text x="268" y="232" style="font-size:9.5px;fill:#8a7a5d">CLEAN · GRADE · HTST</text>
+          <text x="268" y="250" style="font-size:9.5px;fill:#8a7a5d">GRIND · BLENDE · TEST</text>
+        </g>
+        <!-- node: cat lai -->
+        <g class="phnode">
+          <rect x="480" y="180" width="180" height="88" fill="rgba(191,59,34,.1)" stroke="var(--pepper)" stroke-width="1.6" rx="4"/>
+          <text x="498" y="212" style="font-size:11px;letter-spacing:.14em">CAT LAI / CAI MEP</text>
+          <text x="498" y="232" style="font-size:9.5px;fill:#8a7a5d">CUSTOMS · PHYTO · CO</text>
+          <text x="498" y="250" style="font-size:9.5px;fill:#8a7a5d">20' FCL LOAD-OUT</text>
+        </g>
+        <!-- node: manila -->
+        <g class="phnode">
+          <rect x="786" y="180" width="190" height="88" fill="rgba(191,59,34,.1)" stroke="var(--pepper)" stroke-width="1.6" rx="4"/>
+          <text x="804" y="212" style="font-size:11px;letter-spacing:.14em">MANILA · CEBU PORTS</text>
+          <text x="804" y="232" style="font-size:9.5px;fill:#8a7a5d">PH CUSTOMS · FDA NOTICE</text>
+          <text x="804" y="250" style="font-size:9.5px;fill:#8a7a5d">BONDED WAREHOUSE</text>
+        </g>
+        <!-- node: importers -->
+        <g class="phnode">
+          <rect x="1012" y="180" width="158" height="88" fill="rgba(51,98,122,.1)" stroke="var(--sky)" stroke-width="1.6" rx="4"/>
+          <text x="1030" y="212" style="font-size:11px;letter-spacing:.14em">IMPORTERS</text>
+          <text x="1030" y="232" style="font-size:9.5px;fill:#8a7a5d">DISTRIBUTORS · 100+</text>
+          <text x="1030" y="250" style="font-size:9.5px;fill:#8a7a5d">FOOD-INGREDIENT BUYERS</text>
+        </g>
+
+        <!-- end segments -->
+        <g class="phnode">
+          <rect x="160" y="300" width="150" height="64" fill="rgba(82,112,47,.1)" stroke="var(--moss)" stroke-width="1.4" rx="4"/>
+          <text x="178" y="328" style="font-size:10px;letter-spacing:.12em">NOODLE &amp; SNACK</text>
+          <text x="178" y="346" style="font-size:9px;fill:#8a7a5d">SEASONING BLENDS</text>
+        </g>
+        <g class="phnode">
+          <rect x="330" y="300" width="150" height="64" fill="rgba(82,112,47,.1)" stroke="var(--moss)" stroke-width="1.4" rx="4"/>
+          <text x="348" y="328" style="font-size:10px;letter-spacing:.12em">SAUCES &amp; MARINADES</text>
+          <text x="348" y="346" style="font-size:9px;fill:#8a7a5d">FOOD MANUFACTURING</text>
+        </g>
+        <g class="phnode">
+          <rect x="500" y="300" width="150" height="64" fill="rgba(82,112,47,.1)" stroke="var(--moss)" stroke-width="1.4" rx="4"/>
+          <text x="518" y="328" style="font-size:10px;letter-spacing:.12em">MEAT &amp; FOODSERVICE</text>
+          <text x="518" y="346" style="font-size:9px;fill:#8a7a5d">QSR · CATERING</text>
+        </g>
+        <g class="phnode">
+          <rect x="670" y="300" width="150" height="64" fill="rgba(82,112,47,.1)" stroke="var(--moss)" stroke-width="1.4" rx="4"/>
+          <text x="688" y="328" style="font-size:10px;letter-spacing:.12em">RETAIL SACHETS</text>
+          <text x="688" y="346" style="font-size:9px;fill:#8a7a5d">GROCERY · E-COMMERCE</text>
+        </g>
+
+        <!-- tariff band -->
+        <g>
+          <rect x="30" y="410" width="1140" height="46" fill="rgba(166,118,27,.1)" stroke="rgba(166,118,27,.45)" stroke-width="1.2" rx="4"/>
+          <text x="52" y="439" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;fill:#7c5410">
+            ATIGA (ASEAN TRADE IN GOODS) · FORM D CERTIFICATE OF ORIGIN → 0% PREFERENTIAL TARIFF · PHYTOSANITARY + FUMIGATION + FDA PHILIPPINES NOTIFICATION
+          </text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="cards c2 reveal" style="margin-top:clamp(34px,4vw,56px)">
+      <div class="card">
+        <h4>Product fit — what Philippine buyers actually need</h4>
+        <p style="margin-top:14px">
+          <strong>500 g/l machine-clean black</strong> for noodle and snack seasoning lines ·
+          <strong>steam-sterilised ASTA</strong> for food manufacturers with microbiological specs ·
+          <strong>ground &amp; custom blends</strong> for sauce producers ·
+          <strong>white pepper</strong> for premium seasoning ·
+          <strong>20–100 g retail packs and sachets</strong> for grocery and e-commerce.
+        </p>
+      </div>
+      <div class="card">
+        <h4>Market structure — concentrated but contestable</h4>
+        <p style="margin-top:14px">
+          Philippine pepper imports are highly concentrated by supplier (Vietnam dominates import value share) — but the buyer side is a broad base of 100+ importing companies.
+          That structure rewards exporters who build direct importer relationships rather than selling passively into the spot market.
+        </p>
+      </div>
+    </div>
+
+    <h4 class="reveal" style="margin:clamp(40px,5vw,64px) 0 20px">Entry playbook</h4>
+    <div class="cards c4 reveal">
+      <div class="card"><div class="icon">01</div><h3>Work the importer base</h3><p>Target food-ingredient importers and distributors in Metro Manila, Cebu and Davao; many source Vietnamese cargo already but through intermediaries — margin is available for direct supply.</p></div>
+      <div class="card"><div class="icon">02</div><h3>Ship under ATIGA</h3><p>Issue a Form D certificate of origin to access the 0% preferential tariff under the ASEAN Trade in Goods Agreement — the single biggest cost edge over non-ASEAN competition.</p></div>
+      <div class="card"><div class="icon">03</div><h3>Register for food clearance</h3><p>Imported processed food typically needs FDA Philippines notification/registration. Prepare phytosanitary, fumigation and lab-test documents alongside the commercial set.</p></div>
+      <div class="card"><div class="icon">04</div><h3>Offer the right formats</h3><p>Lead with bulk 20' FCL for manufacturers, but bundle ground/sterilised lines and small retail formats — the fastest-growing, least contested part of the Philippine market.</p></div>
+    </div>
+
+    <div class="risks reveal" style="margin-top:clamp(34px,4vw,56px)">
+      <div class="risk">
+        <div class="lvl md">MED</div>
+        <div><h3>Price &amp; FX sensitivity</h3><p>Philippine buyers are price-focused and peso-exposed; long payment terms with mid-size distributors are common. Quote in USD with clear Incoterms and credit limits.</p></div>
+      </div>
+      <div class="risk">
+        <div class="lvl lo">LOW</div>
+        <div><h3>Logistics friction</h3><p>Short, frequent sailings and established Vietnam–Philippines container services keep freight low. Main risk is documentation delays rather than transit.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= SEASONALITY ================= -->
+<section id="season">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">06 — Seasonality &amp; prices</div>
+        <h2 class="reveal d1">The year of a <em>peppercorn</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        Harvest concentrates in the dry season of the Central Highlands — roughly January to May, peaking February–April — while export shipments run year-round against stockholdings.
+        Price formation is a tug-of-war between the shrinking Vietnamese crop, imported feedstock, and stock levels in consuming markets.
+      </p>
+    </div>
+
+    <div class="season reveal" data-chart>
+      <div class="mon"><div class="mname">Jan</div><div class="meter"><i data-h="55" class="och"></i></div><div class="note">Harvest begins</div></div>
+      <div class="mon"><div class="mname">Feb</div><div class="meter"><i data-h="82" class="och"></i></div><div class="note">Peak picking</div></div>
+      <div class="mon"><div class="mname">Mar</div><div class="meter"><i data-h="95" class="och"></i></div><div class="note">Peak volume</div></div>
+      <div class="mon"><div class="mname">Apr</div><div class="meter"><i data-h="88" class="och"></i></div><div class="note">Drying &amp; cleaning</div></div>
+      <div class="mon"><div class="mname">May</div><div class="meter"><i data-h="66" class="och"></i></div><div class="note">Crop winds down</div></div>
+      <div class="mon"><div class="mname">Jun</div><div class="meter"><i data-h="48"></i></div><div class="note">Stock build</div></div>
+      <div class="mon"><div class="mname">Jul</div><div class="meter"><i data-h="52"></i></div><div class="note">Steady shipments</div></div>
+      <div class="mon"><div class="mname">Aug</div><div class="meter"><i data-h="56"></i></div><div class="note">Pre-buying starts</div></div>
+      <div class="mon"><div class="mname">Sep</div><div class="meter"><i data-h="62" class="mos"></i></div><div class="note">Import feedstock rises</div></div>
+      <div class="mon"><div class="mname">Oct</div><div class="meter"><i data-h="68" class="mos"></i></div><div class="note">Import feedstock rises</div></div>
+      <div class="mon"><div class="mname">Nov</div><div class="meter"><i data-h="78"></i></div><div class="note">Year-end contracts</div></div>
+      <div class="mon"><div class="mname">Dec</div><div class="meter"><i data-h="86"></i></div><div class="note">Record months</div></div>
+    </div>
+
+    <div class="prices reveal" style="margin-top:clamp(34px,4vw,56px)">
+      <div class="price">
+        <div class="p">6.36</div>
+        <div class="u">US$ / kg · black pepper benchmark, Nov 2026</div>
+        <div class="d">The 500 g/l Vietnamese grade traded in a US$6.10–6.80 band through 2025–26 — historic highs for the crop.</div>
+        <div class="trend flat">≈ steady vs Oct</div>
+      </div>
+      <div class="price">
+        <div class="p">6,372</div>
+        <div class="u">US$ / tonne · avg black export price, 8M 2026</div>
+        <div class="d">Down about 4% year on year — the reason value grew more slowly than volume in 2026.</div>
+        <div class="trend down">−4% y/y</div>
+      </div>
+      <div class="price">
+        <div class="p">8,386</div>
+        <div class="u">US$ / tonne · avg white export price, 8M 2026</div>
+        <div class="d">A ~30% premium over black pepper, reflecting extra processing (soaking, retting, hulling) and tighter supply.</div>
+        <div class="trend up">+30% premium</div>
+      </div>
+      <div class="price">
+        <div class="p">135–139k</div>
+        <div class="u">VND / kg · farmgate, Aug–Sep 2026</div>
+        <div class="d">Versus VND 145,000–150,000 a year earlier. Farmgate easing is what allows volume-led export growth.</div>
+        <div class="trend down">−7% y/y</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= PLAYERS ================= -->
+<section id="players" class="alt">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">07 — Industry players</div>
+        <h2 class="reveal d1">Who moves the <em>volume</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        The exporter field mixes global commodity groups with Vietnamese family-owned champions and specialist processors.
+        Filter by role to see who controls sourcing scale, who leads on certified processing, and who anchors the international trading layer.
+      </p>
+    </div>
+
+    <div class="filterbar reveal">
+      <button class="tgl on" data-filter="all">All players</button>
+      <button class="tgl" data-filter="vn">Vietnamese exporters</button>
+      <button class="tgl" data-filter="global">Global traders</button>
+      <button class="tgl" data-filter="cert">Certified &amp; organic</button>
+      <button class="tgl" data-filter="proc">Processing specialists</button>
+    </div>
+
+    <div class="companies reveal" id="companies">
+      <div class="co" data-tags="vn global">
+        <div class="rank">01 · TOP SUPPLIER H1 2026</div>
+        <h3>Phuc Sinh Corporation</h3>
+        <p>Ranked the leading Vietnamese pepper exporter by recorded trade value in H1 2026. A major private agro group spanning coffee and pepper with high-volume trading capacity and broad market reach.</p>
+        <div class="chips"><span class="chip">Black &amp; white pepper</span><span class="chip b">High-volume trading</span></div>
+      </div>
+      <div class="co" data-tags="global cert proc">
+        <div class="rank">02 · GLOBAL GROUP</div>
+        <h3>Olam Agri Vietnam</h3>
+        <p>One of the largest spice exporters in the country, backed by a global logistics network. Products span 500 g/l, 550 g/l, ASTA, white, ground and steam-sterilised pepper, with BRCGS, ISO 22000, HACCP and Rainforest Alliance certification plus farm-level traceability apps at buying points.</p>
+        <div class="chips"><span class="chip g">BRCGS · ISO 22000</span><span class="chip g">Rainforest Alliance</span><span class="chip">Traceability platform</span></div>
+      </div>
+      <div class="co" data-tags="vn cert">
+        <div class="rank">03 · VERTICALLY INTEGRATED</div>
+        <h3>Visimex Corporation</h3>
+        <p>Founded 2002; spices, cashew and star anise. Integrated from farm partnerships to processing and distribution, exporting to 100+ countries with organic-certified pepper lines.</p>
+        <div class="chips"><span class="chip g">USDA &amp; EU Organic</span><span class="chip g">Halal · Kosher</span><span class="chip">100+ markets</span></div>
+      </div>
+      <div class="co" data-tags="vn proc cert">
+        <div class="rank">04 · FOOD-SAFETY SPECIALIST</div>
+        <h3>Trân Châu Pepper</h3>
+        <p>Invested heavily in High-Temperature-Short-Time steam sterilisation; regarded as a reliable ASTA-grade supplier to food manufacturers in Europe and North America.</p>
+        <div class="chips"><span class="chip">HTST sterilisation</span><span class="chip g">BRCGS · Halal · Kosher</span></div>
+      </div>
+      <div class="co" data-tags="global cert">
+        <div class="rank">05 · INTERNATIONAL PROCESSOR</div>
+        <h3>Nedspice Vietnam</h3>
+        <p>European spice processor with Vietnamese sourcing and processing operations; active in sustainable pepper programmes and a frequent publisher of global pepper crop intelligence.</p>
+        <div class="chips"><span class="chip g">Sustainable sourcing</span><span class="chip b">Crop research</span></div>
+      </div>
+      <div class="co" data-tags="global proc">
+        <div class="rank">06 · ESTATE &amp; BULK</div>
+        <h3>ofi (Olam Food Ingredients)</h3>
+        <p>Global bulk spice supplier with estates in Vietnam and Brazil, offering sterilised and ground pepper with traceability and sustainability programmes for industrial buyers.</p>
+        <div class="chips"><span class="chip">Bulk industrial</span><span class="chip g">Estate-backed</span></div>
+      </div>
+      <div class="co" data-tags="vn proc">
+        <div class="rank">07 · FACTORY-SCALE PROCESSING</div>
+        <h3>PITCO &amp; regional processors</h3>
+        <p>State-linked and private factories producing ASTA unsteam/wash and double-washed white pepper at container-scale throughput — the mid-tier that converts most of the crop into exportable grades.</p>
+        <div class="chips"><span class="chip">ASTA wash lines</span><span class="chip">2 × 20'FCL / day</span></div>
+      </div>
+      <div class="co" data-tags="vn">
+        <div class="rank">08 · PROVINCIAL TRADERS</div>
+        <h3>Simexco Dak Lak &amp; highland aggregators</h3>
+        <p>Provincial trading companies and cooperatives that aggregate from smallholder farmers in Dak Lak, Dak Nong and Gia Lai — the layer where traceability, residue testing and farmer training are actually implemented.</p>
+        <div class="chips"><span class="chip b">Farm aggregation</span><span class="chip g">Farmer training</span></div>
+      </div>
+      <div class="co" data-tags="global">
+        <div class="rank">09 · TRADE ASSOCIATION</div>
+        <h3>VPSA — Vietnam Pepper &amp; Spice Association</h3>
+        <p>Sets the industry's crop estimates and market data, represents exporters in trade and policy matters, and hosts the Vietnam International Pepper Outlook (VIPO 2027) as the sector's global forum.</p>
+        <div class="chips"><span class="chip">Crop estimates</span><span class="chip b">VIPO 2027</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= LOGISTICS ================= -->
+<section id="logistics">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">08 — Logistics &amp; gateways</div>
+        <h2 class="reveal d1">Four gateways for a <em>land-locked crop</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        Pepper is grown far from the sea, so inland haulage to the coast is a material cost line. Most containers still leave through the Ho Chi Minh City cluster —
+        traditionally "FOB Cat Lai" — while central and northern ports increasingly serve regional buyers directly.
+      </p>
+    </div>
+
+    <div class="cards c4 reveal">
+      <div class="card">
+        <div class="icon">HCM</div>
+        <h3>Cat Lai · Cai Mep–Thi Vai</h3>
+        <p><span class="mono" style="color:var(--pepper)">VNSGN</span> — the dominant gateway for spice containers. Cai Mep's deep-water berths handle mainline services to Europe and the US East Coast; Cat Lai serves intra-Asia lanes — including the short hop to Manila.</p>
+      </div>
+      <div class="card">
+        <div class="icon">DAD</div>
+        <h3>Da Nang · Chu Lai</h3>
+        <p>Central-coast ports serving Quang Tri and the northern Central Highlands. Chu Lai has opened direct sea routes to India, shortening transit for a fast-growing regional buyer.</p>
+      </div>
+      <div class="card">
+        <div class="icon">HPH</div>
+        <h3>Hai Phong</h3>
+        <p>Northern gateway for China-bound cargo and the emerging Lach Huyen deep-water terminal — relevant as Chinese buying accelerates.</p>
+      </div>
+      <div class="card">
+        <div class="icon">LND</div>
+        <h3>Land corridors</h3>
+        <p>Cambodian pepper enters by road via Kien Giang and Tay Ninh, then feeds the Binh Duong–Dong Nai processing cluster before re-export — a supply path invisible in port statistics but large in tonnage.</p>
+      </div>
+    </div>
+
+    <div class="cards c2 reveal" style="margin-top:1px">
+      <div class="card">
+        <h4>Chain economics — where value is added</h4>
+        <p style="margin-top:14px">
+          <strong>Farm gate</strong> → collector margin → <strong>processing</strong> (cleaning, drying, destoning, grading, steam sterilisation, grinding) →
+          <strong>export FOB</strong> → freight &amp; insurance → importer duty, blending, retail packing.
+          The industry's stated strategic goal is to shift weight from raw unground exports toward grinding, sterilisation and branded ingredients, where margins are several times higher.
+        </p>
+      </div>
+      <div class="card">
+        <h4>Freight &amp; routing as contract risk</h4>
+        <p style="margin-top:14px">
+          Buyers in Europe and the Gulf increasingly weigh freight rates, routing reliability and compliance history alongside price when selecting suppliers and corridors —
+          a shift that favours exporters with their own warehousing, consolidated shipments and long-term carrier allocations.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= COMPLIANCE ================= -->
+<section id="compliance" class="alt">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">09 — Export process &amp; compliance</div>
+        <h2 class="reveal d1">From contract to <em>bill of lading</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        Click through the seven stages of a typical Vietnamese pepper export consignment — including the documents customs and importing authorities demand,
+        and the quality gates that determine grade and price.
+      </p>
+    </div>
+
+    <div class="process reveal">
+      <div class="pstep open">
+        <button class="phead"><span class="no">01</span><span class="t">Sourcing, sampling &amp; contracting</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>Buyers specify density grade (500 g/l, 550 g/l), cleanliness (FAQ, machine clean, ASTA), steam-sterilised or non-sterilised, moisture and defect limits, plus residue and microbiological specifications. Exporters source from contracted farmer groups or the spot market, draw pre-shipment samples, and agree Incoterms — classically FOB Cat Lai, increasingly FCA for consolidated loads.</p>
+          <div>
+            <h4>Typical quality specs</h4>
+            <div class="doclist" style="margin-top:12px">
+              <span class="tag">500 g/l · 550 g/l</span><span class="tag">FAQ</span><span class="tag">Machine clean</span>
+              <span class="tag">ASTA</span><span class="tag">Steam sterilised</span><span class="tag">Moisture ≤ 12–13%</span>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="pstep">
+        <button class="phead"><span class="no">02</span><span class="t">Cleaning, drying &amp; grading</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>Raw peppercorns are destoned, cleaned, colour-sorted and density-graded; white pepper undergoes soaking/retting and hulling before washing and drying. Consistent grading is what separates a US$6,400/t cargo from a discounted one.</p>
+          <div><h4>Outputs</h4><div class="doclist" style="margin-top:12px"><span class="tag">Black whole</span><span class="tag">White whole</span><span class="tag">Light berries</span><span class="tag">Pin heads / off-grade</span></div></div>
+        </div></div>
+      </div>
+      <div class="pstep">
+        <button class="phead"><span class="no">03</span><span class="t">Steam sterilisation &amp; grinding</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>HTST (high-temperature-short-time) steam treatment reduces microbial load while preserving volatile oil — a standard requirement for European and US food manufacturers. Grinding and blending lines then produce powders and custom seasoning mixes.</p>
+          <div><h4>Added-value lines</h4><div class="doclist" style="margin-top:12px"><span class="tag">HTST sterilised</span><span class="tag">Ground 20–60 mesh</span><span class="tag">Custom blends</span></div></div>
+        </div></div>
+      </div>
+      <div class="pstep">
+        <button class="phead"><span class="no">04</span><span class="t">Laboratory testing &amp; residue control</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>Consignments are tested for pesticide MRLs (EU and FDA limits), Sudan dyes, aflatoxins, E. coli / Salmonella, and moisture. Residue non-compliance is the single biggest rejection risk for Vietnamese pepper in the EU.</p>
+          <div><h4>Test panels</h4><div class="doclist" style="margin-top:12px"><span class="tag">MRL multi-residue</span><span class="tag">Aflatoxins</span><span class="tag">Microbiology</span><span class="tag">Moisture</span></div></div>
+        </div></div>
+      </div>
+      <div class="pstep">
+        <button class="phead"><span class="no">05</span><span class="t">Fumigation &amp; packing</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>Where required by the destination (notably the US), cargo is fumigated and a fumigation certificate issued. Packing is typically 25/50 kg PP bags or compressed bales, palletised, with storage isolated from odours, insects and rodents.</p>
+          <div><h4>Packing</h4><div class="doclist" style="margin-top:12px"><span class="tag">25 kg / 50 kg PP</span><span class="tag">20' FCL</span><span class="tag">Odour-isolated storage</span></div></div>
+        </div></div>
+      </div>
+      <div class="pstep">
+        <button class="phead"><span class="no">06</span><span class="t">Customs dossier &amp; plant quarantine</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>Export declaration is filed with the standard commercial documents plus plant-health paperwork. Inspection and phytosanitary certification are handled through the provincial plant quarantine authority; an electronic Phyto certificate is issued for customs and the importing country.</p>
+          <div>
+            <h4>Core documents</h4>
+            <div class="doclist" style="margin-top:12px">
+              <span class="tag">Commercial invoice</span><span class="tag">Packing list</span><span class="tag">Bill of lading</span>
+              <span class="tag">Phytosanitary certificate</span><span class="tag">Fumigation certificate</span>
+              <span class="tag">Certificate of origin (CO)</span><span class="tag">Insurance cert.</span>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="pstep">
+        <button class="phead"><span class="no">07</span><span class="t">Booking, shipment &amp; traceability</span><span class="pm"></span></button>
+        <div class="pbody"><div class="pbody-in">
+          <p>Containers move to Cat Lai, Cai Mep, Da Nang or Hai Phong; shipment records feed back into the traceability systems that certified exporters maintain from farm group to consignment — increasingly a condition of supply for multinational food brands.</p>
+          <div><h4>Traceability layers</h4><div class="doclist" style="margin-top:12px"><span class="tag">Farm group ID</span><span class="tag">Lot / batch record</span><span class="tag">Container seal</span><span class="tag">Buyer portal</span></div></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(38px,5vw,62px)" class="reveal">
+      <h4 style="margin-bottom:18px">HS codes at a glance</h4>
+      <div style="border:1px solid var(--line);background:var(--paper-2);overflow-x:auto">
+        <table class="hs">
+          <thead><tr><th>HS code</th><th>Product</th><th>Role in the chain</th><th>Share of export value</th></tr></thead>
+          <tbody>
+            <tr><td>090411</td><td>Black pepper, neither crushed nor ground</td><td>Core bulk export line — machine clean, ASTA, steam sterilised</td><td>68.8% (dominant line)</td></tr>
+            <tr><td>090412</td><td>Black pepper, crushed or ground</td><td>Value-added processing — powders for food manufacturers</td><td rowspan="2">19.8% combined</td></tr>
+            <tr><td>090422</td><td>White pepper, crushed or ground</td><td>Premium powders and blends</td></tr>
+            <tr><td>090421</td><td>White pepper, neither crushed nor ground</td><td>Premium whole white — ~30% price premium</td><td>16.3% (incl. ground white)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mono" style="font-size:.72rem;letter-spacing:.12em;color:var(--ink-soft);margin-top:14px;text-transform:uppercase">
+        Black pepper = 83.7% of the four pepper HS lines · Crushed/ground = 19.8% of value · Shares: Jan–Jul 2026 recorded export value
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= OUTLOOK ================= -->
+<section id="outlook">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <div class="kicker reveal">10 — Risks &amp; outlook</div>
+        <h2 class="reveal d1">Price is no longer the <em>main risk</em></h2>
+      </div>
+      <p class="lede reveal d2">
+        After the 2025 price spike, the binding constraints have shifted: a shrinking domestic crop, dependence on imported raw material,
+        tightening compliance regimes in Western markets, and the logistics of getting volume to buyers on time.
+      </p>
+    </div>
+
+    <div class="risks reveal">
+      <div class="risk">
+        <div class="lvl hi">HIGH</div>
+        <div>
+          <h3>Domestic supply squeeze</h3>
+          <p>The 2026 crop is estimated at 170,000 t, down 12.8%, with cultivation area flat at roughly 110,500 ha after years of over-expansion and price collapses. Export growth is now structurally dependent on imported pepper.</p>
+        </div>
+      </div>
+      <div class="risk">
+        <div class="lvl hi">HIGH</div>
+        <div>
+          <h3>Compliance &amp; residue rejection</h3>
+          <p>EU maximum residue limits, deforestation-related due diligence and food-safety audits can disqualify entire consignments. Traceability from farm group level is becoming a market-access requirement, not a marketing asset.</p>
+        </div>
+      </div>
+      <div class="risk">
+        <div class="lvl md">MED</div>
+        <div>
+          <h3>Price volatility &amp; farmer economics</h3>
+          <p>Record prices in 2025 gave way to softer farmgate levels in 2026 (VND 135,000–139,000/kg). Volatile margins discourage replanting and quality investment at farm level, feeding the supply squeeze.</p>
+        </div>
+      </div>
+      <div class="risk">
+        <div class="lvl md">MED</div>
+        <div>
+          <h3>Freight, routing &amp; trade policy</h3>
+          <p>Container rates, transshipment reliability and tariff actions in destination markets now sit alongside price in contract negotiations — especially for European and Gulf buyers choosing between supplier corridors.</p>
+        </div>
+      </div>
+      <div class="risk">
+        <div class="lvl lo">OPP</div>
+        <div>
+          <h3>Deep processing upside</h3>
+          <p>Crushed, ground and blended products still under-index versus global norms (≈27% of world black pepper trade is processed). Shifting share toward sterilised and ground lines is the sector's clearest margin opportunity.</p>
+        </div>
+      </div>
+      <div class="risk">
+        <div class="lvl lo">OPP</div>
+        <div>
+          <h3>Market diversification</h3>
+          <p>China (+54% to +64% in 2026), the Gulf, the Philippines and wider ASEAN reduce reliance on a single buyer, while Vietnam's 80%+ grip on the US market gives unusual pricing power in the world's largest importing country.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sustain reveal" style="margin-top:clamp(38px,5vw,62px)">
+      <div class="sus">
+        <div class="badge">SUS</div>
+        <h3>Sustainable sourcing programmes</h3>
+        <p>Multi-stakeholder programmes in Dak Lak, Dak Nong and Gia Lai — pairing processors and traders with farmer groups on safe production, residue reduction and agroforestry. Industry platforms such as the Sustainable Spices Initiative anchor buyer commitments.</p>
+      </div>
+      <div class="sus">
+        <div class="badge">CERT</div>
+        <h3>Certification as market access</h3>
+        <p>BRCGS, ISO 22000, HACCP, Rainforest Alliance, USDA/EU Organic, Halal and Kosher are now baseline requirements for retail and food-manufacturing contracts in Europe, North America and the Gulf.</p>
+      </div>
+      <div class="sus">
+        <div class="badge">DATA</div>
+        <h3>Traceability infrastructure</h3>
+        <p>Exporter traceability platforms link farm groups to shipping lots — the same data layer that supports due-diligence compliance also supports premium positioning for origin-verified Vietnamese pepper.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="sources">
+  <div class="wrap">
+    <div class="footgrid">
+      <div>
+        <div class="kicker">Data basis</div>
+        <h2 class="reveal" style="font-size:clamp(1.7rem,2.6vw,2.35rem);margin-top:.5em">Built on published <em>trade and industry data</em></h2>
+        <p style="margin-top:18px;max-width:44ch">
+          Figures combine Vietnam's General Statistics Office reporting, Vietnam Pepper and Spice Association (VPSA) estimates, customs line-level data, bilateral trade trackers and industry research.
+          Statistics are current to the latest published releases of October–November 2026; full-year 2026 figures remain provisional.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:20px">Sources consulted</h4>
+        <ul class="srcs">
+          <li>OEC — Pepper in Philippines Trade (bilateral tracker, 2026)</li>
+          <li>Tridge — Black Pepper market overview, Philippines</li>
+          <li>6W Research — Philippines Pepper Market 2024–2030</li>
+          <li>IMARC — Philippines Spices &amp; Seasonings Market 2026–2034</li>
+          <li>Export Genius — Philippines black pepper importers</li>
+          <li>TradeWithViet — ATIGA Form D &amp; Vietnam export documents</li>
+          <li>World Bank / JICA — Philippines &amp; Vietnam logistics studies</li>
+          <li>Topease — Vietnam Pepper Exports 2026: Markets &amp; Trade Data</li>
+          <li>TradeInt — Global pepper export data H1 2026 (HS 0904)</li>
+          <li>World's Top Exports — Black Pepper Exports &amp; Imports by Country</li>
+          <li>VietnamPlus / VNA — Pepper exports hit record high in 2025</li>
+          <li>VietnamNet — Pepper export growth H1 2026 · US market share</li>
+          <li>Nhan Dan — US and China lead imports of Vietnamese pepper</li>
+          <li>Visimex — Top 8 Black Pepper Exporters in Vietnam 2026</li>
+          <li>Vietnam News — Shift from raw exports to deep processing</li>
+          <li>SGGP — Pepper industry sustainable growth (cultivation area)</li>
+          <li>CBI — European market potential for black pepper</li>
+          <li>Nedspice — Global Pepper Crop Report 2026</li>
+          <li>CABI — Food safety &amp; market access for peppercorn, SE Asia</li>
+          <li>PMC / Curtin — Smallholder pepper value-chain research</li>
+          <li>CGIAR — Value chain assessment (pepper), collector dynamics</li>
+          <li>H-Cargo / Vinasources — Pepper export procedures &amp; documents</li>
+          <li>Tridge — Black pepper price benchmarks · Farm-to-plant guide</li>
+          <li>IDH / SSI — Sustainable pepper supply chain programmes</li>
+          <li>VPSA — Vietnam International Pepper Outlook (VIPO 2027)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:20px">At a glance</h4>
+        <div class="mp-stats" style="grid-template-columns:1fr">
+          <div class="mp-stat"><div class="v">US$1.66 B</div><div class="k">2025 export value — record</div></div>
+          <div class="mp-stat"><div class="v">192 kt / US$1.25 B</div><div class="k">Jan–Aug 2026 exports</div></div>
+          <div class="mp-stat"><div class="v">110.5 k ha</div><div class="k">Pepper cultivation area</div></div>
+          <div class="mp-stat"><div class="v">US$2.78 M / 68%</div><div class="k">Philippines imports from VN, Aug 2026</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">
+      <span>Vietnam Pepper Supply Chain Atlas · Interactive edition</span>
+      <span>Data vintage: Oct–Nov 2026 · Figures rounded</span>
+      <span><a href="#top" style="text-decoration:none;color:var(--pepper)">↑ Back to top</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ progress + scroll-spy ============ */
+const prog = document.getElementById('progress');
+const links = [...document.querySelectorAll('.navlinks a')];
+function onScroll(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (window.scrollY / (h||1) * 100) + '%';
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+const spy = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      links.forEach(l=>l.classList.toggle('active', l.getAttribute('href') === '#'+id));
+    }
+  });
+}, {rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id], header[id]').forEach(s=>spy.observe(s));
+
+/* ============ reveal ============ */
+const revealObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); revealObs.unobserve(e.target); }
+  });
+}, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* ============ count-up ============ */
+const countObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseFloat(el.dataset.target);
+    const dec = parseInt(el.dataset.dec||'0',10);
+    const dur = 1500; const start = performance.now();
+    function step(now){
+      const p = Math.min((now-start)/dur, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = (target*eased).toFixed(dec);
+      if(p<1) requestAnimationFrame(step);
+      else el.textContent = target.toFixed(dec);
+    }
+    requestAnimationFrame(step);
+    countObs.unobserve(el);
+  });
+}, {threshold:.5});
+document.querySelectorAll('.count').forEach(el=>countObs.observe(el));
+
+/* ============ charts ============ */
+const chartObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.querySelectorAll('.barfill').forEach((b,i)=>{
+      setTimeout(()=>{ b.style.width = b.dataset.w + '%'; }, i*95);
+    });
+    e.target.querySelectorAll('.mon .meter i').forEach((m,i)=>{
+      setTimeout(()=>{ m.style.height = m.dataset.h + '%'; }, i*65);
+    });
+    e.target.querySelectorAll('[data-donut]').forEach(c=>{
+      const len = c.dataset.donut;
+      c.style.strokeDasharray = '0 440';
+      setTimeout(()=>{ c.style.strokeDasharray = len + ' 440'; }, 120);
+    });
+    chartObs.unobserve(e.target);
+  });
+}, {threshold:.25});
+document.querySelectorAll('[data-chart]').forEach(c=>chartObs.observe(c));
+
+/* ============ tooltip ============ */
+const tip = document.getElementById('tip');
+document.querySelectorAll('.barrow').forEach(row=>{
+  row.addEventListener('mousemove', ev=>{
+    const lbl = row.querySelector('.lbl').textContent;
+    const val = row.querySelector('.val').textContent.trim();
+    tip.innerHTML = '<b>'+lbl+'</b><br>'+val;
+    tip.style.left = ev.clientX+'px';
+    tip.style.top = ev.clientY+'px';
+    tip.style.opacity = 1;
+  });
+  row.addEventListener('mouseleave', ()=>{ tip.style.opacity = 0; });
+});
+
+/* ============ FARM CHAIN rail ============ */
+const CHAIN = {
+  1:{role:'Farm layer · Year 0–2', title:'Planting &amp; vines',
+    body:'Pepper is a perennial vine (Piper nigrum) taking two to three years to reach first commercial harvest. Vines are trained on living or concrete poles and usually intercropped with coffee, cashew or fruit trees — an income buffer for smallholders. National cultivation area stood near 110,500 hectares at the end of 2024, with Dak Lak alone accounting for roughly 41% of Central Highlands pepper area.',
+    stats:[['2–3 yrs','To first harvest'],['~1–2 ha','Typical plot'],['110.5k ha','National area'],['Intercrop','With coffee & fruit']]},
+  2:{role:'Farm layer · Organisation', title:'Farmer groups &amp; training',
+    body:'Vietnam\'s pepper sector is dominated by smallholders, and nearly all growers are organised into farmer groups inside "safe pepper" supply chains. Buyer programmes and development initiatives train groups on good agricultural practice, residue control and record-keeping — the precondition for selling into European and North American chains. Exporters increasingly run digital traceability apps at buying points.',
+    stats:[['Smallholder','Dominant structure'],['Groups','Organisation'],['GAP & residue','Training focus'],['Digital','Traceability apps']]},
+  3:{role:'Farm layer · Jan–May', title:'Harvest',
+    body:'Berries are hand-picked in several passes as spikes ripen from green to red. The Central Highlands harvest runs January to May, peaking February–April. Harvest timing sets moisture, colour and defect levels — and therefore the grade and price a lot will eventually command.',
+    stats:[['Jan–May','Harvest window'],['Feb–Apr','Peak'],['Hand-picked','Method'],['Multi-pass','Picking']]},
+  4:{role:'Farm layer · Post-harvest', title:'On-farm drying &amp; storage',
+    body:'After harvest, berries are dried — traditionally on concrete yards or tarps in the sun, increasingly with mechanical dryers — to about 12–13% moisture. Research identifies village-level harvesting, drying and initial storage as the critical SPS control points: poor drying produces mould and aflatoxin risk that no later processing can repair.',
+    stats:[['12–13%','Target moisture'],['Sun / mechanical','Drying'],['Critical','Safety control'],['Village','Storage level']]},
+  5:{role:'Farm layer · Price discovery', title:'Farm-gate sale',
+    body:'The first transaction happens at the farm gate, usually with village collectors quoting daily prices. Farmgate ran VND 135,000–139,000 per kg in August–September 2026, down from VND 145,000–150,000 a year earlier. Smallholders are the most price-exposed actors in the chain — when prices fall, income drops immediately while input costs lag.',
+    stats:[['VND 135–139k','Per kg, Sep 2026'],['−7%','vs 2025'],['Daily','Price setting'],['Cash','Settlement']]},
+  6:{role:'Farm layer · First mile', title:'Collectors &amp; aggregation',
+    body:'Collectors are conventionally the first intermediaries in the pepper value chain — sometimes farmers themselves. They buy small lots, bulk them, do rough cleaning and sorting, and move crop to district traders. Cooperatives can bypass part of this layer and pay above market price for traceable lots destined for Europe.',
+    stats:[['1st','Intermediary'],['Bulk','Function'],['Co-ops','Bypass layer'],['Traceable','Premium lots']]},
+  7:{role:'Farm layer · Exit', title:'Trader handover &amp; processing entry',
+    body:'Provincial traders and exporter buying stations consolidate tonnage, test for residues and moisture, and hand over to processing plants in the Ho Chi Minh City cluster or in-province facilities. From here the industrial chain takes over: cleaning, grading, steam sterilisation, grinding and export.',
+    stats:[['Testing','Residue & moisture'],['Consolidation','Volume'],['Buying stations','Exporter presence'],['Processing','Next stage']]}
+};
+const chPanel = {role:document.getElementById('chRole'), title:document.getElementById('chTitle'), body:document.getElementById('chBody'), stats:document.getElementById('chStats')};
+document.querySelectorAll('.cstep').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.cstep').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const d = CHAIN[btn.dataset.stage];
+    chPanel.role.textContent = d.role;
+    chPanel.title.innerHTML = d.title;
+    chPanel.body.textContent = d.body;
+    chPanel.stats.innerHTML = d.stats.map(s=>'<div class="mp-stat"><div class="v">'+s[0]+'</div><div class="k">'+s[1]+'</div></div>').join('');
+    chPanel.body.parentElement.parentElement.animate(
+      [{opacity:.4, transform:'translateY(8px)'},{opacity:1, transform:'none'}],
+      {duration:380, easing:'cubic-bezier(.2,.7,.3,1)'}
+    );
+  });
+});
+
+/* ============ MAP interactions ============ */
+const NODES = {
+  quangtri:{role:'Production origin · North Central Coast',title:'Quang Tri',
+    tags:['Emerging origin','Sensory-research origin','North Central'],
+    body:'A smaller but distinctive producing province in the north-central coast. Quang Tri pepper has featured in research building regional sensory standards alongside Dak Nong, Dak Lak and Gia Lai — a step toward origin-based premium positioning.',
+    stats:[['Small','Scale vs highlands'],['North','Location'],['Origin','Branding potential'],['Research','Sensory profile work']]},
+  gialai:{role:'Production origin · Central Highlands',title:'Gia Lai',
+    tags:['Central Highlands','Expansion zone','Smallholder farms'],
+    body:'One of the Central Highlands provinces where pepper area expanded strongly over two decades, often intercropped with coffee. Part of the sustainable pepper programmes working with farmer groups on safe production.',
+    stats:[['Highlands','Growing region'],['Mixed','Farm structure'],['Sustainable','Programme coverage'],['Intercrop','Common practice']]},
+  daklak:{role:'Production origin · Largest pepper province',title:'Dak Lak',
+    tags:['Largest area','~41% of highlands pepper','IDH programmes'],
+    body:'Historically the heartland of Vietnamese pepper — studies put Dak Lak at roughly 41% of Central Highlands pepper area. It hosts flagship sustainable supply-chain projects linking cooperatives, processors and international buyers.',
+    stats:[['~41%','Share of highlands area'],['Flagship','Sustainability projects'],['Aggregation','Trading hub'],['Both grades','Black & white']]},
+  daknong:{role:'Production origin · Fast-growing belt',title:'Dak Nong',
+    tags:['Major producer','Sustainable sourcing','Soil-research focus'],
+    body:'A major producing province and a focus of international sustainable sourcing work, including agreements between processors, traders and farmer organisations to produce verified safe pepper.',
+    stats:[['Top-2','Production rank'],['Multi-party','Sourcing programmes'],['Residue','Control focus'],['Export','Via HCMC cluster']]},
+  lamdong:{role:'Production origin · Southern highlands',title:'Lam Dong',
+    tags:['Highlands','Quality-focused','Bao Loc belt'],
+    body:'Southern Central Highlands province producing alongside coffee and tea. Its proximity to the Ho Chi Minh City processing cluster shortens inland haulage compared with northern highland origins.',
+    stats:[['South','Highlands position'],['Near-hub','Logistics advantage'],['Quality','Clean-farming reputation'],['Mixed','Crop portfolio']]},
+  binhphuoc:{role:'Production origin · South-eastern belt',title:'Binh Phuoc',
+    tags:['South-east','Cashew & pepper belt','Export-proximate'],
+    body:'A key pepper-growing area in the south-east, alongside the cashew belt. Proximity to HCMC ports gives it a logistics edge — peppers can move from farm to export container within a day.',
+    stats:[['South-east','Region'],['Key area','Recognised belt'],['Closest','To ports'],['1 day','Farm to port']]},
+  kiengiang:{role:'Land import gateway · Mekong Delta',title:'Kien Giang',
+    tags:['Land border','Cambodian inflow','Mekong Delta'],
+    body:'South-western province bordering Cambodia. Raw pepper crossing by road here and via Tay Ninh feeds the Ho Chi Minh City processing cluster — a growing share of Vietnam\'s re-export volumes.',
+    stats:[['Land','Corridor type'],['Cambodia','Counterpart'],['Road','Transport mode'],['Re-export','End use']]},
+  hub:{role:'Processing & trading hub',title:'Ho Chi Minh City cluster',
+    tags:['Binh Duong','Dong Nai','HCMC','Processing'],
+    body:'The commercial engine of the chain: cleaning, destoning, colour sorting, HTST steam sterilisation, grinding and blending plants, plus exporter head offices, banks and inspection labs.',
+    stats:[['HTST','Sterilisation lines'],['ASTA','Standard grading'],['Labs','Residue testing'],['Export HQ','Trading offices']]},
+  haiphong:{role:'Seaport · Northern gateway',title:'Hai Phong',
+    tags:['VNHHP','Northern Vietnam','China corridor'],
+    body:'Northern seaport complex including the Lach Huyen deep-water terminal. Increasingly relevant for China-bound shipments as Chinese buying of Vietnamese pepper accelerates.',
+    stats:[['North','Region'],['China','Main corridor'],['Deep-water','Lach Huyen'],['Container','Services']]},
+  danang:{role:'Seaport · Central coast',title:'Da Nang',
+    tags:['VNDAD','Central Vietnam','Regional services'],
+    body:'Central-coast container port serving the north Central Highlands and provinces such as Quang Tri; a practical alternative when southern ports congest.',
+    stats:[['Central','Region'],['Alt','Congestion relief'],['Regional','Services'],['Intermodal','Rail & road']]},
+  chulai:{role:'Seaport · Central coast',title:'Chu Lai',
+    tags:['Quang Nam','Direct India route','Emerging'],
+    body:'Chu Lai port in Quang Nam has launched direct international sea routes — including services to India — reducing transit for central-origin cargo and opening new corridors for spice shipments.',
+    stats:[['India','Direct route'],['Emerging','Gateway'],['Quang Nam','Location'],['New','Service']]},
+  catlai:{role:'Main export gateway',title:'Cat Lai & Cai Mep–Thi Vai',
+    tags:['VNSGN','FOB benchmark','Deep water'],
+    body:'The workhorse gateway for Vietnamese spice containers — Cat Lai for intra-Asia lanes (including Manila), Cai Mep–Thi Vai for mainline services to Europe and the Americas. "FOB Cat Lai" remains the reference Incoterm in most pepper contracts.',
+    stats:[['#1','Container gateway'],['FOB','Contract benchmark'],['Mainline','EU & US services'],['20\' FCL','Standard unit']]},
+  cambodia:{role:'Import origin · #1 supplier',title:'Cambodia',
+    tags:['Land border','Largest supplier','2026 inflow'],
+    body:'Vietnam\'s largest source of imported raw pepper in 2026. Peppercorns cross the land border into the Mekong Delta and south-east, then move to processing plants for cleaning, sterilisation and re-export.',
+    stats:[['#1','Import supplier'],['Land','Transport'],['High','Volume growth'],['Re-export','End use']]},
+  brazil:{role:'Import origin · Southern Hemisphere counter-season',title:'Brazil',
+    tags:['Ocean freight','Counter-seasonal','~19 kt YTD'],
+    body:'Brazil\'s export boom is partly driven by Vietnam: Vietnamese processors imported roughly 19 kt year-to-date, using Brazilian crop to bridge the off-season and compensate for the shrinking domestic harvest.',
+    stats:[['~19 kt','YTD volume'],['Counter-season','Supply window'],['+81%','Brazil exports 2025'],['Blend','Processing use']]},
+  indonesia:{role:'Import origin · White pepper specialist',title:'Indonesia',
+    tags:['Muntok white','Regional trade','Third supplier'],
+    body:'Traditional home of Muntok white pepper and Vietnam\'s third-largest import source. Regional trade flows both ways — Indonesian pepper enters Vietnamese processing lines while Vietnamese shipments displace Indonesian volumes in the US market.',
+    stats:[['#3','Import supplier'],['Muntok','White specialty'],['Regional','Trade'],['Stock sales','Market driver']]},
+  usa:{role:'Destination market · #1 buyer',title:'United States',
+    tags:['#1 buyer','20.8% of value','80%+ import share'],
+    body:'The single largest buyer by recorded value in 2026. Vietnam supplies over 80% of US pepper imports by volume — up sharply year on year as Indonesian shipments fell. Order cycles have swung more than 30% within a single year.',
+    stats:[['20.8%','Share of buyer value'],['80%+','VN share of US imports'],['+28.7%','H1 2026 growth'],['Fumigation','Import requirement']]},
+  eu:{role:'Destination market · Compliance frontier',title:'Europe',
+    tags:['Germany','Netherlands','France','Spain','MRL regime'],
+    body:'Europe is the strictest compliance market — residue limits, due-diligence rules and audit standards shape how pepper must be grown and tested. Germany, the Netherlands, France and Spain are also major re-export hubs: Germany alone re-exports 30–40% of its imports.',
+    stats:[['>90%','Whole pepper share'],['30–40%','German re-export'],['Strict','MRL regime'],['Premium','Sterilised demand']]},
+  china:{role:'Destination market · Fastest growth',title:'China',
+    tags:['+54% to +64%','Fastest growing','Regional logistics'],
+    body:'China is accelerating again — recorded intake up strongly in 2026 and shipments up 64% in the first half on association data. Proximity via Hai Phong and border trade keeps transit short.',
+    stats:[['+54%','Recorded intake 2026'],['+64%','H1 2026 shipments'],['Short','Transit time'],['Volatile','Demand swings']]},
+  india:{role:'Destination & competitor · Processing hub',title:'India & South Asia',
+    tags:['Processor','Re-export hub','Buyer'],
+    body:'India is simultaneously a major importer, a processor that adds value to raw pepper, and a competitor origin whose declining Kerala crop has pushed global prices higher. Direct services from Chu Lai to India shorten the corridor.',
+    stats:[['US$246M','2025 imports'],['Dual','Buyer & rival'],['Processing','Value-add hub'],['Direct','Sea route']]},
+  uae:{role:'Destination market · Gulf entrepôt',title:'UAE & Gulf',
+    tags:['Top-5 market','Entrepôt','Re-export'],
+    body:'The UAE ranks among Vietnam\'s top pepper buyers and functions as an entrepôt re-exporting into the wider Middle East and Africa — a diversification market that reduces dependence on any single buyer.',
+    stats:[['Top-5','Market rank'],['Entrepôt','Re-export role'],['Gulf','Regional reach'],['Growing','Demand']]},
+  philippines:{role:'Destination market · Frontier spotlight',title:'Philippines & ASEAN',
+    tags:['~68% VN share','3–5 day transit','ATIGA 0%','100+ importers'],
+    body:'The Philippines imports essentially all its pepper and already takes roughly two-thirds of it from Vietnam — US$2.78 million of US$4.05 million in August 2026. Short Cat Lai–Manila sailings, an ATIGA zero-tariff preference and a broad food-manufacturing base make it the most winnable growth market in the atlas. Thailand and wider ASEAN round out the regional corridor.',
+    stats:[['US$4.05M','PH imports, Aug 2026'],['~68%','From Vietnam'],['3–5 days','Sea transit'],['0%','ATIGA tariff']]}
+};
+
+const panel = {
+  role: document.getElementById('mpRole'),
+  title: document.getElementById('mpTitle'),
+  tags: document.getElementById('mpTags'),
+  body: document.getElementById('mpBody'),
+  stats: document.getElementById('mpStats')
+};
+
+document.querySelectorAll('.mapnode').forEach(node=>{
+  node.addEventListener('click', ()=>{
+    const d = NODES[node.dataset.id];
+    if(!d) return;
+    panel.role.textContent = d.role;
+    panel.title.textContent = d.title;
+    panel.tags.innerHTML = d.tags.map(t=>'<span class="tag">'+t+'</span>').join('');
+    panel.body.textContent = d.body;
+    panel.stats.innerHTML = d.stats.map(s=>'<div class="mp-stat"><div class="v">'+s[0]+'</div><div class="k">'+s[1]+'</div></div>').join('');
+    document.getElementById('mappanel').animate(
+      [{opacity:.35, transform:'translateY(8px)'},{opacity:1, transform:'none'}],
+      {duration:380, easing:'cubic-bezier(.2,.7,.3,1)'}
+    );
+    if(window.innerWidth < 1060){
+      document.getElementById('mappanel').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  });
+  node.addEventListener('mousemove', ev=>{
+    const d = NODES[node.dataset.id]; if(!d) return;
+    tip.innerHTML = '<b>'+d.title+'</b><br>'+d.role;
+    tip.style.left = ev.clientX+'px'; tip.style.top = ev.clientY+'px'; tip.style.opacity = 1;
+  });
+  node.addEventListener('mouseleave', ()=>{ tip.style.opacity = 0; });
+});
+
+/* map view toggles */
+document.querySelectorAll('.mapbar .tgl').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.mapbar .tgl').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const v = btn.dataset.view;
+    const groups = {dom:'flows-dom', imp:'flows-imp', exp:'flows-exp'};
+    Object.entries(groups).forEach(([k,id])=>{
+      const el = document.getElementById(id);
+      if(el) el.querySelectorAll('.flow').forEach(f=>{
+        f.classList.toggle('hide', v!=='all' && v!==k);
+      });
+    });
+    document.querySelectorAll('.mapnode').forEach(n=>{
+      const c = n.dataset.cat;
+      if(v==='all'){ n.classList.remove('dim'); return; }
+      const relevant =
+        (v==='imp' && (c==='import')) ||
+        (v==='exp' && (c==='market'||c==='port')) ||
+        (v==='dom' && (c==='origin'||c==='port'));
+      n.classList.toggle('dim', !relevant);
+    });
+  });
+});
+
+/* ============ company filter ============ */
+document.querySelectorAll('.filterbar .tgl').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filterbar .tgl').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('#companies .co').forEach(co=>{
+      const tags = (co.dataset.tags||'').split(' ');
+      co.classList.toggle('hide', f!=='all' && !tags.includes(f));
+    });
+  });
+});
+
+/* ============ accordion ============ */
+function setOpen(step, open){
+  const body = step.querySelector('.pbody');
+  step.classList.toggle('open', open);
+  body.style.maxHeight = open ? (body.scrollHeight + 'px') : '0px';
+}
+document.querySelectorAll('.pstep').forEach(step=>{
+  const head = step.querySelector('.phead');
+  head.addEventListener('click', ()=>{
+    const willOpen = !step.classList.contains('open');
+    document.querySelectorAll('.pstep').forEach(s=>setOpen(s,false));
+    setOpen(step, willOpen);
+  });
+});
+window.addEventListener('load', ()=>{
+  const first = document.querySelector('.pstep.open');
+  if(first) setOpen(first, true);
+});
+window.addEventListener('resize', ()=>{
+  const open = document.querySelector('.pstep.open');
+  if(open) setOpen(open, true);
+});
+
+/* ============ smooth anchor offset ============ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', ev=>{
+    const id = a.getAttribute('href');
+    if(id.length < 2) return;
+    const el = document.querySelector(id);
+    if(!el) return;
+    ev.preventDefault();
+    const y = el.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({top:y, behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
